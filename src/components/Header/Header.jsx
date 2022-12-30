@@ -1,15 +1,27 @@
-import React from 'react'
+import { Typography, Box, useTheme } from "@mui/material";
+import { tokens } from "../../theme";
 
-import './header.css'
+const Header = ({ title, subtitle }) => {
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
 
-const Header = () => {
   return (
-    <nav className='navbar navbar-expand-lg bg-body-tertiary'>
-        <div className='container-fluid'>
-            <a href="/" className='navbar-brand'>Sneaker Mining</a>
-        </div>
-    </nav>
-  )
-}
+    <Box sx={{ m: "5px 0 0 20px" }}>
+      <Box>
+        <Typography
+          variant="h2"
+          color={colors.grey[100]}
+          fontWeight="bold"
+          sx={{ m: "0 0 5px 0" }}
+        >
+          {title}
+        </Typography>
+        <Typography variant="h5" color={colors.greenAccent[400]}>
+          {subtitle}
+        </Typography>
+      </Box>
+    </Box>
+  );
+};
 
-export default Header
+export default Header;

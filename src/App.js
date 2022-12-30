@@ -1,22 +1,36 @@
-import React from 'react'
+import { useState } from "react";
+import { Routes, Route } from "react-router-dom";
+import { ColorModeContext, useMode } from "./theme";
+import { CssBaseline, ThemeProvider } from "@mui/material";
 
-import Header from './components/Header/Header'
-import Footer from './components/Footer/Footer'
-import Search from './components/Search/Search'
-import Sneaker from './components/Sneaker/Sneaker'
+import Topbar from "./scenes/global/Topbar";
+import Sidebar from "./scenes/global/Sidebar";
+import Dashboard from "./scenes/dashboard/Dashboard";
+
+import Search from "./scenes/Search/Search";
+import Inventory from "./components/Inventory/Inventory";
 
 const App = () => {
-  return (
-    <>
-        <Header/>
-        <main>
-            <Search/>
-            <Sneaker/>
-        </main>
-        <Footer/>
-    </>
-    
-  )
-}
+  const [theme, colorMode] = useMode();
 
-export default App
+  return (
+    <ColorModeContext.Provider value={colorMode}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <div className="app">
+          <Sidebar />
+          <main className="content">
+            <Topbar />
+            <Routes>
+              <Route path="/" element={<Dashboard />} />
+              <Route path="/search" element={<Search />} />
+              <Route path="/inventory" element={<Inventory />} />
+            </Routes>
+          </main>
+        </div>
+      </ThemeProvider>
+    </ColorModeContext.Provider>
+  );
+};
+
+export default App;
