@@ -14,19 +14,26 @@ import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import Header from "../../components/Header/Header";
 
-const Search = () => {
+const Search = ({ currencyEx, currencyCal, currency }) => {
   const [sneaker, setSneaker] = useState(null);
   const [size, setSize] = useState(null);
   const [detail, setDetail] = useState(null);
-
-  console.log(size);
-  console.log(detail);
+  const [url, setUrl] = useState("");
 
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
+  const handleChange = (e) => {
+    e.preventDefault();
+    const searchURL = e.target.value;
+    setUrl(searchURL);
+  };
+
   const onSneakerSearch = async () => {
-    await axios.get("/search-sneaker").then((prod) => setSneaker(prod.data));
+    await axios
+      .post("/search-sneaker", { url })
+      .then((prod) => setSneaker(prod.data));
+    setUrl("");
   };
 
   const onGetDetail = (size) => {
@@ -36,7 +43,11 @@ const Search = () => {
 
   return (
     <Box>
-      <Header title="Search" subtitle="Search the sneaker from StockX" />
+      <Header
+        title="Search"
+        subtitle="Search the sneaker from StockX"
+        note="Please input the full stockX link, since stockX has customized link for each sneaker"
+      />
       <Box
         display="flex"
         backgroundColor={colors.primary[400]}
@@ -44,7 +55,12 @@ const Search = () => {
         width="200px"
         sx={{ m: "20px 0 0 20px" }}
       >
-        <InputBase sx={{ ml: 2, flex: 1 }} placeholder="Sneaker Name" />
+        <InputBase
+          sx={{ ml: 2, flex: 1 }}
+          placeholder="Sneaker Name"
+          onChange={handleChange}
+          value={url}
+        />
         <IconButton type="button" sx={{ p: 1 }} onClick={onSneakerSearch}>
           <SearchIcon />
         </IconButton>
@@ -69,10 +85,20 @@ const Search = () => {
               borderRadius: "15px",
             }}
           />
-          <Typography variant="h4">Sneaker Name: {sneaker.urlKey}</Typography>
-          <Typography variant="h5" sx={{ m: "10px 0 40px 0" }}>
-            Style: {sneaker.pid}
-          </Typography>
+          <Box
+            display="flex"
+            sx={{
+              mt: "20px",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Typography variant="h4">{sneaker.urlKey}</Typography>
+            <Typography variant="h5" sx={{ m: "10px 0 40px 0" }}>
+              Style: {sneaker.pid}
+            </Typography>
+          </Box>
           <Grid
             container
             spacing={{ xs: 2, md: 3 }}
@@ -106,7 +132,9 @@ const Search = () => {
               }}
               display="flex"
             >
-              <Typography variant="h5">Product Detail</Typography>
+              <Typography variant="h5">
+                Product Detail ({currencyEx === currency.CAD ? "CAD" : "USD"})
+              </Typography>
               <Box
                 display="flex"
                 sx={{
@@ -118,14 +146,20 @@ const Search = () => {
                 <Box>
                   <Typography>Size: {detail.size}</Typography>
                   <Typography>
-                    Annual Range: {detail.market.annualLow} -{" "}
-                    {detail.market.annualHigh}
+                    Annual Range: {currencyCal(detail.market.annualLow)} -{" "}
+                    {currencyCal(detail.market.annualHigh)}
                   </Typography>
-                  <Typography>Last Sale: {detail.market.lastSale}</Typography>
+                  <Typography>
+                    Last Sale: {currencyCal(detail.market.lastSale)}
+                  </Typography>
                 </Box>
                 <Box>
-                  <Typography>Hight Bid: {detail.market.highestBid}</Typography>
-                  <Typography>Lowest Ask: {detail.market.lowestAsk}</Typography>
+                  <Typography>
+                    Hight Bid: {currencyCal(detail.market.highestBid)}
+                  </Typography>
+                  <Typography>
+                    Lowest Ask: {currencyCal(detail.market.lowestAsk)}
+                  </Typography>
                 </Box>
               </Box>
             </Box>

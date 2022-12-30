@@ -6,9 +6,9 @@ const app = express();
 
 app.use(express.json());
 
-app.get("/search-sneaker", function (req, res, next) {
+app.post("/search-sneaker", function (req, res, next) {
   stockX
-    .fetchProductDetails("https://stockx.com/adidas-yeezy-boost-700-magnet")
+    .fetchProductDetails(req.body.url)
     .then((products) => res.send(products))
     .catch((err) =>
       console.log(`Error scraping product details: ${err.message}`)
