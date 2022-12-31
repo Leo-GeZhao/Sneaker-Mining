@@ -16,9 +16,9 @@ const Topbar = ({ currencyEx, setCurrencyEx, currency }) => {
   const colorMode = useContext(ColorModeContext);
 
   return (
-    <Box display="flex" justifyContent="space-between" p={2}>
+    <Box display="flex" justifyContent="end" p={2}>
       {/* search bar */}
-      <Box
+      {/* <Box
         display="flex"
         backgroundColor={colors.primary[400]}
         borderRadius="3px"
@@ -27,7 +27,7 @@ const Topbar = ({ currencyEx, setCurrencyEx, currency }) => {
         <IconButton type="button" sx={{ p: 1 }}>
           <SearchIcon />
         </IconButton>
-      </Box>
+      </Box> */}
 
       {/* icons */}
       <Box display="flex">
