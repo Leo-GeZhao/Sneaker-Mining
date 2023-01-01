@@ -10,6 +10,7 @@ async function create(req, res, next) {
     inventory.image = sneaker.image;
     inventory.url = req.body.url;
     inventory.expense = req.body.expense;
+    inventory.brand = req.body.brand;
     req.body.size.map((s, idx) => {
       const detail = sneaker.variants.filter((size) => size.size == s);
       const singleSize = {

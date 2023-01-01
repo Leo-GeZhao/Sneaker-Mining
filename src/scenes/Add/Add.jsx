@@ -1,6 +1,10 @@
 import { useState } from "react";
 import Header from "../../components/Header/Header";
 import { Box, useTheme, TextField, Button } from "@mui/material";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 import { tokens } from "../../theme";
 import axios from "axios";
 
@@ -10,11 +14,12 @@ const Add = () => {
   const [url, setUrl] = useState("");
   const [sizeStr, setSizeStr] = useState([]);
   const [expenseStr, setExpenseStr] = useState(null);
+  const [brand, setBrand] = useState("Nike");
 
-  const handleSubmit = async (url, sizeStr) => {
+  const handleSubmit = async () => {
     const size = sizeStr[0].split(",").map(Number);
     const expense = Number(expenseStr);
-    const data = { url, size, expense };
+    const data = { url, size, expense, brand };
     await axios.post("/add", data);
   };
 
@@ -42,6 +47,20 @@ const Add = () => {
           label="SNEAKER URL"
           onChange={(e) => setUrl(e.target.value)}
         />
+        <FormControl sx={{ width: 250, mt: "10px", mb: "6px" }}>
+          <InputLabel id="demo-simple-select-label">Brand</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={brand}
+            label="Brand"
+            onChange={(e) => setBrand(e.target.value)}
+          >
+            <MenuItem value="Nike">Nike</MenuItem>
+            <MenuItem value="Jordan">Jordan</MenuItem>
+            <MenuItem value="Adidas">Adidas</MenuItem>
+          </Select>
+        </FormControl>
         <TextField
           required
           id="outlined-required"
@@ -61,7 +80,7 @@ const Add = () => {
             color: colors.primary[100],
             border: `1px solid ${colors.primary[100]}`,
           }}
-          onClick={() => handleSubmit(url, sizeStr)}
+          onClick={() => handleSubmit()}
         >
           Submit
         </Button>

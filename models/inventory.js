@@ -17,6 +17,9 @@ const inventorySchema = new Schema(
     expense: {
       type: Number,
     },
+    brand: {
+      type: String,
+    },
   },
 
   {
