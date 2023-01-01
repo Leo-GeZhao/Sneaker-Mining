@@ -13,7 +13,7 @@ const Add = () => {
   const colors = tokens(theme.palette.mode);
   const [url, setUrl] = useState("");
   const [sizeStr, setSizeStr] = useState([]);
-  const [expenseStr, setExpenseStr] = useState(null);
+  const [expenseStr, setExpenseStr] = useState("");
   const [brand, setBrand] = useState("Nike");
 
   const handleSubmit = async () => {
@@ -21,6 +21,10 @@ const Add = () => {
     const expense = Number(expenseStr);
     const data = { url, size, expense, brand };
     await axios.post("/add", data);
+    setUrl("");
+    setBrand("Nike");
+    setExpenseStr("");
+    setSizeStr([]);
   };
 
   return (
@@ -45,6 +49,7 @@ const Add = () => {
           required
           id="outlined-required"
           label="SNEAKER URL"
+          value={url}
           onChange={(e) => setUrl(e.target.value)}
         />
         <FormControl sx={{ width: 250, mt: "10px", mb: "6px" }}>
@@ -59,18 +64,21 @@ const Add = () => {
             <MenuItem value="Nike">Nike</MenuItem>
             <MenuItem value="Jordan">Jordan</MenuItem>
             <MenuItem value="Adidas">Adidas</MenuItem>
+            <MenuItem value="Yeezy">Yeezy</MenuItem>
           </Select>
         </FormControl>
         <TextField
           required
           id="outlined-required"
           label="Expense"
+          value={expenseStr}
           onChange={(e) => setExpenseStr(e.target.value)}
         />
         <TextField
           required
           id="outlined-required"
           label="Size"
+          value={sizeStr}
           helperText="Please type sizes like 4,5,8,9"
           onChange={(e) => setSizeStr([e.target.value])}
         />

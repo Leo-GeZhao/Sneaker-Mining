@@ -14,11 +14,12 @@ const List = ({
   currency,
   setFinish,
   finish,
+  update,
+  setUpdate,
 }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [inventorySize, setInventorySize] = useState(0);
-  const [update, setUpdate] = useState("update");
 
   const handleUpdate = async (url, id, size) => {
     const data = { url, id, size };
