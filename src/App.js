@@ -5,10 +5,11 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
-import Dashboard from "./scenes/dashboard/Dashboard";
 
+import Dashboard from "./scenes/dashboard/Dashboard";
 import Search from "./scenes/Search/Search";
-import Inventory from "./components/Inventory/Inventory";
+import Add from "./scenes/Add/Add";
+import Inventory from "./scenes/Inventory/Inventory";
 
 const currency = {
   USD: 1,
@@ -47,7 +48,17 @@ const App = () => {
                   />
                 }
               />
-              <Route path="/inventory" element={<Inventory />} />
+              <Route path="/add" element={<Add />} />
+              <Route
+                path="/inventory"
+                element={
+                  <Inventory
+                    currencyEx={currencyEx}
+                    currencyCal={currencyCal}
+                    currency={currency}
+                  />
+                }
+              />
             </Routes>
           </main>
         </div>

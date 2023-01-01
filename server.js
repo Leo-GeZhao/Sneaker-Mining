@@ -1,10 +1,24 @@
 const express = require("express");
+const path = require("path");
+// const favicon = require("serve-favicon");
+const logger = require("morgan");
 const StockXAPI = require("stockx-api");
 const stockX = new StockXAPI();
 
+require("dotenv").config();
+require("./config/database");
+
+const inventoryRouter = require("./routes/inventory");
+
 const app = express();
 
+app.use(logger("dev"));
 app.use(express.json());
+
+// app.use(favicon(path.join(__dirname, "build", "favicon.ico")));
+// app.use(express.static(path.join(__dirname, "build")));
+
+app.use("/", inventoryRouter);
 
 app.post("/search-sneaker", function (req, res, next) {
   stockX
@@ -15,6 +29,12 @@ app.post("/search-sneaker", function (req, res, next) {
     );
 });
 
-app.listen(3001, () => {
-  console.log("Server started at port 3001");
+app.get("/*", function (req, res) {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
+});
+
+const port = process.env.PORT || 3001;
+
+app.listen(port, function () {
+  console.log(`Express app running on port ${port}`);
 });

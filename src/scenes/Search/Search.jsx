@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { tokens } from "../../theme";
 import axios from "axios";
 import {
@@ -16,7 +16,7 @@ import Header from "../../components/Header/Header";
 
 const Search = ({ currencyEx, currencyCal, currency }) => {
   const [sneaker, setSneaker] = useState(null);
-  const [size, setSize] = useState(null);
+  // const [size, setSize] = useState(null);
   const [detail, setDetail] = useState(null);
   const [url, setUrl] = useState("");
 
