@@ -55,6 +55,23 @@ const List = ({
       </TableCell>
       <TableCell component="th" scope="row" align="right" sx={{ width: "20%" }}>
         {currencyCal(inventory.size[inventorySize].lastSale)}
+        <Box
+          component="span"
+          sx={{
+            ml: "3px",
+            color:
+              inventory.size[inventorySize].lastSale - inventory.expense > 0
+                ? "success.main"
+                : "error.main",
+          }}
+        >
+          (
+          {Math.round(
+            (inventory.size[inventorySize].lastSale / inventory.expense - 1) *
+              100
+          )}
+          % )
+        </Box>
       </TableCell>
       <TableCell component="th" scope="row" align="right">
         <Button

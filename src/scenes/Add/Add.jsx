@@ -9,10 +9,12 @@ const Add = () => {
   const colors = tokens(theme.palette.mode);
   const [url, setUrl] = useState("");
   const [sizeStr, setSizeStr] = useState([]);
+  const [expenseStr, setExpenseStr] = useState(null);
 
   const handleSubmit = async (url, sizeStr) => {
     const size = sizeStr[0].split(",").map(Number);
-    const data = { url, size };
+    const expense = Number(expenseStr);
+    const data = { url, size, expense };
     await axios.post("/add", data);
   };
 
@@ -39,6 +41,12 @@ const Add = () => {
           id="outlined-required"
           label="SNEAKER URL"
           onChange={(e) => setUrl(e.target.value)}
+        />
+        <TextField
+          required
+          id="outlined-required"
+          label="Expense"
+          onChange={(e) => setExpenseStr(e.target.value)}
         />
         <TextField
           required

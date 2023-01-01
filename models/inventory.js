@@ -14,7 +14,11 @@ const inventorySchema = new Schema(
       type: String,
     },
     size: [sizeSchema],
+    expense: {
+      type: Number,
+    },
   },
+
   {
     timestamps: true,
   }
