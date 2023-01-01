@@ -17,14 +17,19 @@ const Inventory = ({ currencyEx, currencyCal, currency }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [inventory, setInventory] = useState([]);
+  const [finish, setFinish] = useState(false);
 
-  useEffect(function () {
-    async function getInventory() {
-      const inventory = await axios.get("/inventory");
-      setInventory(inventory.data);
-    }
-    getInventory();
-  }, []);
+  useEffect(
+    function () {
+      async function getInventory() {
+        const inventory = await axios.get("/inventory");
+        setFinish(false);
+        setInventory(inventory.data);
+      }
+      getInventory();
+    },
+    [finish]
+  );
 
   return (
     <Box>
@@ -46,6 +51,7 @@ const Inventory = ({ currencyEx, currencyCal, currency }) => {
                 <TableCell align="right">Highest Bid</TableCell>
                 <TableCell align="right">Lowest Ask</TableCell>
                 <TableCell align="right">Last Sale</TableCell>
+                <TableCell align="right"></TableCell>
               </TableRow>
             </TableHead>
             <TableBody></TableBody>
@@ -57,6 +63,8 @@ const Inventory = ({ currencyEx, currencyCal, currency }) => {
             currencyEx={currencyEx}
             currencyCal={currencyCal}
             currency={currency}
+            setFinish={setFinish}
+            finish={finish}
           />
         ))}
       </Box>

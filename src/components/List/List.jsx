@@ -1,30 +1,38 @@
 import React, { useState } from "react";
-import { Box, Button, ButtonGroup, useTheme } from "@mui/material";
+import axios from "axios";
+import { Box, Button, ButtonGroup, useTheme, Badge } from "@mui/material";
 import { tokens } from "../../theme";
 import Image from "mui-image";
 
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
 
-const List = ({ inventory, currencyEx, currencyCal, currency }) => {
+const List = ({
+  inventory,
+  currencyEx,
+  currencyCal,
+  currency,
+  setFinish,
+  finish,
+}) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [inventorySize, setInventorySize] = useState(0);
-  console.log(inventorySize);
+
+  const handleUpdate = async (url, id, size) => {
+    const data = { url, id, size };
+    await axios.post("/update", data);
+    setFinish(true);
+  };
   return (
     <TableRow>
       <TableCell component="th" scope="row" sx={{ width: "15%" }}>
-        <Image src={inventory.image} width={50} />
+        <Image src={inventory.image} width={70} style={{ borderRadius: 8 }} />
       </TableCell>
       <TableCell component="th" scope="row">
         {inventory.name}
       </TableCell>
-      <TableCell component="th" scope="row" align="right" sx={{ width: "15%" }}>
+      <TableCell component="th" scope="row" align="right" sx={{ width: "10%" }}>
         <ButtonGroup size="small" variant="text">
           {inventory.size.map((s, idx) => (
             <Button
@@ -46,6 +54,20 @@ const List = ({ inventory, currencyEx, currencyCal, currency }) => {
       </TableCell>
       <TableCell component="th" scope="row" align="right" sx={{ width: "20%" }}>
         {currencyCal(inventory.size[inventorySize].lastSale)}
+      </TableCell>
+      <TableCell component="th" scope="row" align="right">
+        <Button
+          style={{
+            color: colors.primary[100],
+          }}
+          onClick={() => {
+            const size = inventory.size.map((i) => i.size);
+
+            handleUpdate(inventory.url, inventory._id, size);
+          }}
+        >
+          Update
+        </Button>
       </TableCell>
     </TableRow>
   );
