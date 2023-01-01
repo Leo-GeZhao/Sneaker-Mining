@@ -18,6 +18,7 @@ const List = ({
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [inventorySize, setInventorySize] = useState(0);
+  const [update, setUpdate] = useState("update");
 
   const handleUpdate = async (url, id, size) => {
     const data = { url, id, size };
@@ -62,11 +63,11 @@ const List = ({
           }}
           onClick={() => {
             const size = inventory.size.map((i) => i.size);
-
             handleUpdate(inventory.url, inventory._id, size);
+            setUpdate("updated!");
           }}
         >
-          Update
+          {update}
         </Button>
       </TableCell>
     </TableRow>
