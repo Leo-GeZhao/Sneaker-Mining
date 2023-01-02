@@ -45,10 +45,10 @@ const Inventory = ({ currencyEx, currencyCal, currency }) => {
         <Header
           title="Inventory"
           subtitle="Inventory List"
-          note={currencyEx === currency.CAD ? "CAD" : "USD"}
+          note={currencyEx === currency.CAD ? "CAD $" : "USD $"}
         />
       </Box>
-      <Box>
+      <Box sx={{ mt: 2 }}>
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>

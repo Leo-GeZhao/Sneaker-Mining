@@ -3,42 +3,50 @@ import { ResponsivePie } from "@nivo/pie";
 import axios from "axios";
 import Header from "../Header/Header";
 import { tokens } from "../../theme";
-import { useTheme, Box } from "@mui/material";
+import { useTheme, Box, Typography } from "@mui/material";
 
 const PieChart = ({ currencyEx, currency, currencyCal }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [totalExpense, setTotalExpense] = useState(null);
   const [nikeValue, setNikeValue] = useState(null);
   const [adidasValue, setAdidasValue] = useState(null);
   const [jordanValue, setJordanValue] = useState(null);
   const [yeezyValue, setYeezyValue] = useState(null);
 
-  useEffect(function () {
-    async function getInventoryByBrand() {
-      const inventory = await axios.get("/inventory");
-      const nikeValue = inventory.data
-        .filter((i) => i.brand === "Nike")
-        .map((b) => b.size.length * b.expense)
-        .reduce((a, b) => a + b, 0);
-      setNikeValue(nikeValue);
-      const jordanValue = inventory.data
-        .filter((i) => i.brand === "Jordan")
-        .map((b) => b.size.length * b.expense)
-        .reduce((a, b) => a + b, 0);
-      setJordanValue(jordanValue);
-      const adidasValue = inventory.data
-        .filter((i) => i.brand === "Adidas")
-        .map((b) => b.size.length * b.expense)
-        .reduce((a, b) => a + b, 0);
-      setAdidasValue(adidasValue);
-      const yeezyValue = inventory.data
-        .filter((i) => i.brand === "Yeezy")
-        .map((b) => b.size.length * b.expense)
-        .reduce((a, b) => a + b, 0);
-      setYeezyValue(yeezyValue);
-    }
-    getInventoryByBrand();
-  }, []);
+  useEffect(
+    function () {
+      async function getInventoryByBrand() {
+        const inventory = await axios.get("/inventory");
+        const totalExpense = inventory.data
+          .map((i) => i.size.length * i.expense)
+          .reduce((a, b) => a + b, 0);
+        setTotalExpense(totalExpense);
+        const nikeValue = inventory.data
+          .filter((i) => i.brand === "Nike")
+          .map((b) => b.size.length * b.expense)
+          .reduce((a, b) => a + b, 0);
+        setNikeValue(nikeValue);
+        const jordanValue = inventory.data
+          .filter((i) => i.brand === "Jordan")
+          .map((b) => b.size.length * b.expense)
+          .reduce((a, b) => a + b, 0);
+        setJordanValue(jordanValue);
+        const adidasValue = inventory.data
+          .filter((i) => i.brand === "Adidas")
+          .map((b) => b.size.length * b.expense)
+          .reduce((a, b) => a + b, 0);
+        setAdidasValue(adidasValue);
+        const yeezyValue = inventory.data
+          .filter((i) => i.brand === "Yeezy")
+          .map((b) => b.size.length * b.expense)
+          .reduce((a, b) => a + b, 0);
+        setYeezyValue(yeezyValue);
+      }
+      getInventoryByBrand();
+    },
+    [totalExpense]
+  );
 
   const data = [
     {
@@ -73,9 +81,13 @@ const PieChart = ({ currencyEx, currency, currencyCal }) => {
         <Header
           title="Expense"
           subtitle="Expense breakdown by each brand"
-          note={currencyEx === currency.CAD ? "CAD" : "USD"}
+          note={currencyEx === currency.CAD ? "CAD $" : "USD $"}
         />
       </Box>
+      <Box sx={{ textAlign: "center", mt: 6 }}>
+        <Typography>Total Expense: {totalExpense}</Typography>
+      </Box>
+
       <Box sx={{ height: 500 }}>
         <ResponsivePie
           data={data}
@@ -107,7 +119,7 @@ const PieChart = ({ currencyEx, currency, currencyCal }) => {
               },
             },
           }}
-          margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
+          margin={{ top: 20, right: 80, bottom: 80, left: 80 }}
           innerRadius={0.5}
           padAngle={0.7}
           cornerRadius={3}
