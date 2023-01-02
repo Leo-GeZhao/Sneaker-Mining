@@ -56,8 +56,19 @@ async function update(req, res, next) {
   }
 }
 
+async function deleteOne(req, res, next) {
+  try {
+    const inventory = await Inventory.findByIdAndDelete(req.params.id);
+    console.log(inventory);
+    res.json();
+  } catch (err) {
+    res.status(400).json(err);
+  }
+}
+
 module.exports = {
   create,
   index,
   update,
+  delete: deleteOne,
 };

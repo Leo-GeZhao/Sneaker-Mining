@@ -7,6 +7,11 @@ import Image from "mui-image";
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+
 const List = ({
   inventory,
   currencyEx,
@@ -25,6 +30,16 @@ const List = ({
     const data = { url, id, size };
     await axios.post("/update", data);
     setFinish(true);
+  };
+
+  const handleDeleteSize = async (data) => {
+    const id = inventory._id;
+    if (data === "all") {
+      axios.delete(`/inventory/${id}/delete`);
+      setFinish(true);
+    } else {
+      console.log(data);
+    }
   };
   return (
     <TableRow>
@@ -74,19 +89,37 @@ const List = ({
           % )
         </Box>
       </TableCell>
-      <TableCell component="th" scope="row" align="right">
-        <Button
-          style={{
-            color: colors.primary[100],
-          }}
-          onClick={() => {
-            const size = inventory.size.map((i) => i.size);
-            handleUpdate(inventory.url, inventory._id, size);
-            setUpdate("updated!");
-          }}
-        >
-          {update}
-        </Button>
+      <TableCell component="th" scope="row" align="right" sx={{ width: "20%" }}>
+        <Box display="flex">
+          <Button
+            style={{
+              color: colors.primary[100],
+            }}
+            onClick={() => {
+              const size = inventory.size.map((i) => i.size);
+              handleUpdate(inventory.url, inventory._id, size);
+              setUpdate("updated!");
+            }}
+          >
+            {update}
+          </Button>
+          <FormControl sx={{ width: 80 }} size="small">
+            <InputLabel id="demo-simple-select-label">Delete</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              // value={brand}
+              label="Delete"
+            >
+              {inventory.size.map((i) => (
+                <MenuItem onClick={() => handleDeleteSize(i.size)}>
+                  {i.size}
+                </MenuItem>
+              ))}
+              <MenuItem onClick={() => handleDeleteSize("all")}>All</MenuItem>
+            </Select>
+          </FormControl>
+        </Box>
       </TableCell>
     </TableRow>
   );

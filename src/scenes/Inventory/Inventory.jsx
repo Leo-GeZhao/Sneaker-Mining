@@ -17,7 +17,6 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { BrandingWatermarkRounded } from "@mui/icons-material";
 
 const Inventory = ({ currencyEx, currencyCal, currency }) => {
   const theme = useTheme();
