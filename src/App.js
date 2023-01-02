@@ -11,6 +11,7 @@ import Search from "./scenes/Search/Search";
 import Add from "./scenes/Add/Add";
 import Inventory from "./scenes/Inventory/Inventory";
 import PieChart from "./components/PieChart/PieChart";
+import BarChart from "./components/BarChart/BarChart";
 
 const currency = {
   USD: 1,
@@ -64,6 +65,16 @@ const App = () => {
                 path="/pie"
                 element={
                   <PieChart
+                    currencyEx={currencyEx}
+                    currency={currency}
+                    currencyCal={currencyCal}
+                  />
+                }
+              />
+              <Route
+                path="/bar"
+                element={
+                  <BarChart
                     currencyEx={currencyEx}
                     currency={currency}
                     currencyCal={currencyCal}

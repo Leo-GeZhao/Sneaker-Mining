@@ -16,7 +16,7 @@ const Header = ({ title, subtitle, note }) => {
         >
           {title}
         </Typography>
-        <Typography variant="h5" color={colors.greenAccent[400]}>
+        <Typography variant="h5" color={colors.greenAccent[400]} sx={{ mb: 1 }}>
           {subtitle}
         </Typography>
         {note && (
