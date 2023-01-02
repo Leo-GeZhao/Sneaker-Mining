@@ -66,9 +66,27 @@ async function deleteOne(req, res, next) {
   }
 }
 
+async function deleteSize(req, res, next) {
+  try {
+    const inventory = await Inventory.findById(req.params.id);
+    if (inventory.size.length === 1) {
+      inventory.delete();
+    } else {
+      await Inventory.findByIdAndUpdate(req.params.id, {
+        $pull: {
+          size: { size: req.body.size },
+        },
+      });
+    }
+  } catch (err) {
+    res.status(400).json(err);
+  }
+}
+
 module.exports = {
   create,
   index,
   update,
   delete: deleteOne,
+  deleteSize,
 };

@@ -32,13 +32,14 @@ const List = ({
     setFinish(true);
   };
 
-  const handleDeleteSize = async (data) => {
+  const handleDeleteSize = async (size) => {
     const id = inventory._id;
-    if (data === "all") {
+    if (size === "all") {
       axios.delete(`/inventory/${id}/delete`);
       setFinish(true);
     } else {
-      console.log(data);
+      axios.delete(`/inventory/${id}/delete-size`, { data: { size: size } });
+      setFinish(true);
     }
   };
   return (
@@ -89,7 +90,7 @@ const List = ({
           % )
         </Box>
       </TableCell>
-      <TableCell component="th" scope="row" align="right" sx={{ width: "20%" }}>
+      <TableCell component="th" scope="row" align="right">
         <Box display="flex">
           <Button
             style={{
