@@ -12,6 +12,13 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
+import TextField from "@mui/material/TextField";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+
 const List = ({
   inventory,
   currencyEx,
@@ -25,6 +32,20 @@ const List = ({
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [inventorySize, setInventorySize] = useState(0);
+  const [open, setOpen] = useState(false);
+  const [soldSize, setSoldSize] = useState("");
+  const [soldPrice, setSoldPrice] = useState("");
+
+  const handleClickOpen = (e) => {
+    setSoldSize(e.target.textContent);
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    console.log(soldPrice);
+    console.log(soldSize);
+    setOpen(false);
+  };
 
   const handleUpdate = async (url, id, size) => {
     const data = { url, id, size };
@@ -42,6 +63,7 @@ const List = ({
       setFinish(true);
     }
   };
+
   return (
     <TableRow>
       <TableCell component="th" scope="row" sx={{ width: "15%" }}>
@@ -104,22 +126,59 @@ const List = ({
           >
             {update}
           </Button>
-          <FormControl sx={{ width: 80 }} size="small">
-            <InputLabel id="demo-simple-select-label">Delete</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              // value={brand}
-              label="Delete"
-            >
-              {inventory.size.map((i) => (
-                <MenuItem onClick={() => handleDeleteSize(i.size)}>
-                  {i.size}
-                </MenuItem>
-              ))}
-              <MenuItem onClick={() => handleDeleteSize("all")}>All</MenuItem>
-            </Select>
-          </FormControl>
+          <Box>
+            <FormControl sx={{ width: 80 }} size="small">
+              <InputLabel id="demo-simple-select-label">Delete</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                // value={brand}
+                label="Delete"
+              >
+                {inventory.size.map((i) => (
+                  <MenuItem onClick={() => handleDeleteSize(i.size)}>
+                    {i.size}
+                  </MenuItem>
+                ))}
+                <MenuItem onClick={() => handleDeleteSize("all")}>All</MenuItem>
+              </Select>
+            </FormControl>
+            <FormControl sx={{ width: 80, mt: 1 }} size="small">
+              <InputLabel id="demo-simple-select-label">Sold</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                // value={brand}
+                label="Sold"
+              >
+                {inventory.size.map((i) => (
+                  <MenuItem onClick={handleClickOpen}>{i.size}</MenuItem>
+                ))}
+                <Dialog open={open} onClose={handleClose}>
+                  <DialogTitle>Congradulations!</DialogTitle>
+                  <DialogContent>
+                    <DialogContentText>
+                      Please enter the sold price for your inventory.
+                    </DialogContentText>
+                    <TextField
+                      autoFocus
+                      margin="dense"
+                      id="name"
+                      label="Sold Price (USD $)"
+                      type="number"
+                      fullWidth
+                      variant="standard"
+                      value={soldPrice}
+                      onChange={(e) => setSoldPrice(e.target.value)}
+                    />
+                  </DialogContent>
+                  <DialogActions>
+                    <Button onClick={handleClose}>Confirm</Button>
+                  </DialogActions>
+                </Dialog>
+              </Select>
+            </FormControl>
+          </Box>
         </Box>
       </TableCell>
     </TableRow>

@@ -18,6 +18,9 @@ const sizeSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    soldPrice: {
+      type: Number,
+    },
   },
   {
     timestamps: true,

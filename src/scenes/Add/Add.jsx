@@ -70,7 +70,7 @@ const Add = () => {
         <TextField
           required
           id="outlined-required"
-          label="Expense"
+          label="Expense (USD $)"
           value={expenseStr}
           onChange={(e) => setExpenseStr(e.target.value)}
         />

@@ -79,6 +79,7 @@ const Inventory = ({ currencyEx, currencyCal, currency }) => {
                 <TableCell>Lowest Ask</TableCell>
                 <TableCell>Last Sale</TableCell>
                 <TableCell></TableCell>
+                <TableCell></TableCell>
               </TableRow>
             </TableHead>
             <TableBody></TableBody>
