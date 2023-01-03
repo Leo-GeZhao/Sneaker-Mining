@@ -28,7 +28,7 @@ const Add = () => {
   };
 
   return (
-    <Box>
+    <Box sx={{ mt: 3 }}>
       <Box>
         <Header title="Add" subtitle="Add sneakers to inventory" />
       </Box>

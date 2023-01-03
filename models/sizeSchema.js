@@ -14,6 +14,10 @@ const sizeSchema = new Schema(
     lastSale: {
       type: Number,
     },
+    is_sold: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,

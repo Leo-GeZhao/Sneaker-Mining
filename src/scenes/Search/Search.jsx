@@ -42,7 +42,7 @@ const Search = ({ currencyEx, currencyCal, currency }) => {
   };
 
   return (
-    <Box>
+    <Box sx={{ mt: 3 }}>
       <Header
         title="Search"
         subtitle="Search the sneaker from StockX"

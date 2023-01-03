@@ -12,6 +12,7 @@ import Add from "./scenes/Add/Add";
 import Inventory from "./scenes/Inventory/Inventory";
 import PieChart from "./components/PieChart/PieChart";
 import BarChart from "./components/BarChart/BarChart";
+import Overview from "./components/Overview/Overview";
 
 const currency = {
   USD: 1,
@@ -39,7 +40,16 @@ const App = () => {
               currency={currency}
             />
             <Routes>
-              <Route path="/" element={<Dashboard />} />
+              <Route
+                path="/"
+                element={
+                  <Dashboard
+                    currencyCal={currencyCal}
+                    currencyEx={currencyEx}
+                    currency={currency}
+                  />
+                }
+              />
               <Route
                 path="/search"
                 element={
@@ -75,6 +85,16 @@ const App = () => {
                 path="/bar"
                 element={
                   <BarChart
+                    currencyEx={currencyEx}
+                    currency={currency}
+                    currencyCal={currencyCal}
+                  />
+                }
+              />
+              <Route
+                path="/overview"
+                element={
+                  <Overview
                     currencyEx={currencyEx}
                     currency={currency}
                     currencyCal={currencyCal}

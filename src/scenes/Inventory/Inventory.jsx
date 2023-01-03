@@ -40,7 +40,7 @@ const Inventory = ({ currencyEx, currencyCal, currency }) => {
   );
 
   return (
-    <Box>
+    <Box sx={{ mt: 3 }}>
       <Box>
         <Header
           title="Inventory"
