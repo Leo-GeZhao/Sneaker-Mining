@@ -85,16 +85,26 @@ async function deleteSize(req, res, next) {
 
 async function sold(req, res, next) {
   try {
-    const inventory = await Inventory.find(
-      { _id: req.params.id },
+    // await Inventory.findOneAndUpdate(
+    //   {
+    //     _id: req.params.id,
+    //     size: { $elemMatch: { size: req.body.soldSize } },
+    //   },
+    //   { $set: { isSold: true } }
+    // );
+    await Inventory.updateOne(
       {
-        size: { $elemMatch: { size: req.body.soldSize } },
+        _id: req.params.id,
+        "size.size": req.body.soldSize,
+      },
+      {
+        $set: { "size.$.isSold": true, "size.$.soldPrice": req.body.soldPrice },
       }
     );
-    console.log(inventory[0].size);
+
     res.json();
   } catch (err) {
-    res.status(400).json();
+    res.status(400).json(err);
   }
 }
 

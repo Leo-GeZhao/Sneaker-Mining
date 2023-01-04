@@ -12,7 +12,7 @@ import Add from "./scenes/Add/Add";
 import Inventory from "./scenes/Inventory/Inventory";
 import PieChart from "./components/PieChart/PieChart";
 import BarChart from "./components/BarChart/BarChart";
-import Overview from "./components/Overview/Overview";
+import Overview from "./scenes/Overview/Overview";
 
 const currency = {
   USD: 1,
