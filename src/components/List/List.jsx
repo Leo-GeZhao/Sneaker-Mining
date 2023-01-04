@@ -42,8 +42,9 @@ const List = ({
   };
 
   const handleClose = () => {
-    console.log(soldPrice);
-    console.log(soldSize);
+    const id = inventory._id;
+    const data = { soldPrice, soldSize };
+    axios.post(`/inventory/${id}/sold-size`, data);
     setOpen(false);
   };
 

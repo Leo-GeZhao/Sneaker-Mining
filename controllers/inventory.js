@@ -83,10 +83,26 @@ async function deleteSize(req, res, next) {
   }
 }
 
+async function sold(req, res, next) {
+  try {
+    const inventory = await Inventory.find(
+      { _id: req.params.id },
+      {
+        size: { $elemMatch: { size: req.body.soldSize } },
+      }
+    );
+    console.log(inventory[0].size);
+    res.json();
+  } catch (err) {
+    res.status(400).json();
+  }
+}
+
 module.exports = {
   create,
   index,
   update,
   delete: deleteOne,
   deleteSize,
+  sold,
 };

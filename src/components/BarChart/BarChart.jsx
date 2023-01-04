@@ -80,7 +80,7 @@ const BarChart = ({ currencyEx, currency, currencyCal }) => {
       <Box>
         <Header
           title="Comparison"
-          subtitle="Comparison filtered by brand "
+          subtitle="Inventory comparison filtered by brand "
           note={currencyEx === currency.CAD ? "CAD $" : "USD $"}
         />
       </Box>
