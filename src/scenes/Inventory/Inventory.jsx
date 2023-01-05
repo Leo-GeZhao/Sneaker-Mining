@@ -3,7 +3,7 @@ import Header from "../../components/Header/Header";
 import List from "../../components/List/List";
 import { tokens } from "../../theme";
 import axios from "axios";
-import { Box, useTheme, Grid } from "@mui/material";
+import { Box, useTheme } from "@mui/material";
 
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -32,9 +32,6 @@ const Inventory = ({ currencyEx, currencyCal, currency }) => {
         const inventory = allInventory.data.filter((i) => i.brand === brand);
         setFinish(false);
         setInventory(inventory);
-        // console.log(inventory);
-        // .filter((s) => s.isSold === false);
-        // console.log(test);
       }
       getInventory();
     },

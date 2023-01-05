@@ -19,11 +19,6 @@ const Transaction = ({ currencyEx, currency, currencyCal }) => {
       const transactions = await axios.get("/inventory/transactions");
       console.log(transactions.data);
       setTransactions(transactions.data);
-      const test = transactions.data
-        .map((i) => i.size)
-        .map((s) => s.filter((t) => t.isSold === true));
-      const test2 = test.map((t) => t).map((s) => s.lastSale);
-      console.log(test);
     }
     getTransactions();
   }, []);

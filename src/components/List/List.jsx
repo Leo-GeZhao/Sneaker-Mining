@@ -45,7 +45,6 @@ const List = ({
     axios.post(`/inventory/${id}/sold-size`, data);
     setFinish(true);
     setOpen(false);
-    // negative("/overview");
   };
 
   const handleUpdate = async (url, id, size, e) => {
@@ -66,9 +65,6 @@ const List = ({
     }
   };
 
-  // const test = inventory.size.filter((i) => i.isSold === false);
-  // console.log(test);
-
   return (
     <TableRow>
       <TableCell component="th" scope="row" sx={{ width: "15%" }}>
@@ -79,17 +75,6 @@ const List = ({
       </TableCell>
       <TableCell component="th" scope="row" align="right" sx={{ width: "10%" }}>
         <ButtonGroup size="small" variant="text">
-          {/* {inventory.size.map((s, idx) => (
-            <Button
-              onClick={() => setInventorySize(idx)}
-              style={{
-                color: colors.primary[100],
-              }}
-            >
-              {s.size}{" "}
-            </Button>
-          ))} */}
-
           {inventory.size
             .filter((i) => i.isSold === false)
             .map((s, idx) => (
@@ -152,11 +137,6 @@ const List = ({
                 // value={brand}
                 label="Delete"
               >
-                {/* {inventory.size.map((i) => (
-                  <MenuItem onClick={() => handleDeleteSize(i.size)}>
-                    {i.size}
-                  </MenuItem>
-                ))} */}
                 {inventory.size
                   .filter((i) => i.isSold === false)
                   .map((s, idx) => (
@@ -175,9 +155,6 @@ const List = ({
                 // value={brand}
                 label="Sold"
               >
-                {/* {inventory.size.map((i) => (
-                  <MenuItem onClick={handleClickOpen}>{i.size}</MenuItem>
-                ))} */}
                 {inventory.size
                   .filter((i) => i.isSold === false)
                   .map((s, idx) => (

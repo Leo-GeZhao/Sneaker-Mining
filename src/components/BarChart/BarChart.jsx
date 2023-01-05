@@ -182,7 +182,6 @@ const BarChart = ({ currencyEx, currency, currencyCal }) => {
             tickSize: 5,
             tickPadding: 5,
             tickRotation: 0,
-            // legend: isDashboard ? undefined : "country", // changed
             legendPosition: "middle",
             legendOffset: 32,
           }}
@@ -190,7 +189,6 @@ const BarChart = ({ currencyEx, currency, currencyCal }) => {
             tickSize: 5,
             tickPadding: 5,
             tickRotation: 0,
-            // legend: isDashboard ? undefined : "food", // changed
             legendPosition: "middle",
             legendOffset: -40,
           }}

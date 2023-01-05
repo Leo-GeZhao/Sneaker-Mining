@@ -6,7 +6,6 @@ import Grid from "@mui/material/Grid";
 import { tokens } from "../../theme";
 import Transaction from "../../components/Transaction/Transaction";
 import PieChart from "../../components/PieChart/PieChart";
-import BarChart from "../../components/BarChart/BarChart";
 
 const Dashboard = ({ currencyEx, currencyCal, currency }) => {
   const theme = useTheme();
@@ -40,9 +39,6 @@ const Dashboard = ({ currencyEx, currencyCal, currency }) => {
                 height={200}
               />
             </Item>
-          </Grid>
-          <Grid item xs={8}>
-            <Item>xs=8</Item>
           </Grid>
           <Grid item xs={12}>
             <Item>
