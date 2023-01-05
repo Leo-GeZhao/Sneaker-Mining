@@ -23,8 +23,7 @@ const Inventory = ({ currencyEx, currencyCal, currency }) => {
   const colors = tokens(theme.palette.mode);
   const [inventory, setInventory] = useState([]);
   const [finish, setFinish] = useState(false);
-  const [brand, setBrand] = useState("Jordan");
-  const [update, setUpdate] = useState("update");
+  const [brand, setBrand] = useState("Nike");
 
   useEffect(
     function () {
@@ -33,6 +32,9 @@ const Inventory = ({ currencyEx, currencyCal, currency }) => {
         const inventory = allInventory.data.filter((i) => i.brand === brand);
         setFinish(false);
         setInventory(inventory);
+        // console.log(inventory);
+        // .filter((s) => s.isSold === false);
+        // console.log(test);
       }
       getInventory();
     },
@@ -63,7 +65,6 @@ const Inventory = ({ currencyEx, currencyCal, currency }) => {
                       label="Brand"
                       onChange={(e) => {
                         setBrand(e.target.value);
-                        setUpdate("update");
                       }}
                     >
                       <MenuItem value="Nike">Nike</MenuItem>
@@ -93,8 +94,6 @@ const Inventory = ({ currencyEx, currencyCal, currency }) => {
             currency={currency}
             setFinish={setFinish}
             finish={finish}
-            update={update}
-            setUpdate={setUpdate}
           />
         ))}
       </Box>

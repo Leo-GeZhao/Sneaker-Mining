@@ -26,8 +26,6 @@ const List = ({
   currency,
   setFinish,
   finish,
-  update,
-  setUpdate,
 }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -45,12 +43,15 @@ const List = ({
     const id = inventory._id;
     const data = { soldPrice, soldSize };
     axios.post(`/inventory/${id}/sold-size`, data);
+    setFinish(true);
     setOpen(false);
+    // negative("/overview");
   };
 
-  const handleUpdate = async (url, id, size) => {
+  const handleUpdate = async (url, id, size, e) => {
     const data = { url, id, size };
     await axios.post("/update", data);
+    e.target.textContent = "updated!";
     setFinish(true);
   };
 
@@ -65,6 +66,9 @@ const List = ({
     }
   };
 
+  // const test = inventory.size.filter((i) => i.isSold === false);
+  // console.log(test);
+
   return (
     <TableRow>
       <TableCell component="th" scope="row" sx={{ width: "15%" }}>
@@ -75,7 +79,7 @@ const List = ({
       </TableCell>
       <TableCell component="th" scope="row" align="right" sx={{ width: "10%" }}>
         <ButtonGroup size="small" variant="text">
-          {inventory.size.map((s, idx) => (
+          {/* {inventory.size.map((s, idx) => (
             <Button
               onClick={() => setInventorySize(idx)}
               style={{
@@ -84,7 +88,20 @@ const List = ({
             >
               {s.size}{" "}
             </Button>
-          ))}
+          ))} */}
+
+          {inventory.size
+            .filter((i) => i.isSold === false)
+            .map((s, idx) => (
+              <Button
+                onClick={() => setInventorySize(idx)}
+                style={{
+                  color: colors.primary[100],
+                }}
+              >
+                {s.size}{" "}
+              </Button>
+            ))}
         </ButtonGroup>
       </TableCell>
       <TableCell component="th" scope="row" align="right" sx={{ width: "15%" }}>
@@ -119,13 +136,12 @@ const List = ({
             style={{
               color: colors.primary[100],
             }}
-            onClick={() => {
+            onClick={(e) => {
               const size = inventory.size.map((i) => i.size);
-              handleUpdate(inventory.url, inventory._id, size);
-              setUpdate("updated!");
+              handleUpdate(inventory.url, inventory._id, size, e);
             }}
           >
-            {update}
+            UPDATE
           </Button>
           <Box>
             <FormControl sx={{ width: 80 }} size="small">
@@ -136,11 +152,18 @@ const List = ({
                 // value={brand}
                 label="Delete"
               >
-                {inventory.size.map((i) => (
+                {/* {inventory.size.map((i) => (
                   <MenuItem onClick={() => handleDeleteSize(i.size)}>
                     {i.size}
                   </MenuItem>
-                ))}
+                ))} */}
+                {inventory.size
+                  .filter((i) => i.isSold === false)
+                  .map((s, idx) => (
+                    <MenuItem onClick={() => handleDeleteSize(s.size)}>
+                      {s.size}
+                    </MenuItem>
+                  ))}
                 <MenuItem onClick={() => handleDeleteSize("all")}>All</MenuItem>
               </Select>
             </FormControl>
@@ -152,9 +175,14 @@ const List = ({
                 // value={brand}
                 label="Sold"
               >
-                {inventory.size.map((i) => (
+                {/* {inventory.size.map((i) => (
                   <MenuItem onClick={handleClickOpen}>{i.size}</MenuItem>
-                ))}
+                ))} */}
+                {inventory.size
+                  .filter((i) => i.isSold === false)
+                  .map((s, idx) => (
+                    <MenuItem onClick={handleClickOpen}>{s.size}</MenuItem>
+                  ))}
                 <Dialog open={open} onClose={handleClose}>
                   <DialogTitle>Congradulations!</DialogTitle>
                   <DialogContent>

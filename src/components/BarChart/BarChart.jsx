@@ -14,7 +14,7 @@ import Select from "@mui/material/Select";
 const BarChart = ({ currencyEx, currency, currencyCal }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const [brand, setBrand] = useState("Jordan");
+  const [brand, setBrand] = useState("Nike");
   const [expense, setExpense] = useState(null);
   const [highestBid, setHighestBid] = useState(null);
   const [lowestAsk, setLowestAsk] = useState(null);
