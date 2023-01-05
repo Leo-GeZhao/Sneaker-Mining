@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { ResponsivePie } from "@nivo/pie";
 import axios from "axios";
-import Header from "../Header/Header";
 import { tokens } from "../../theme";
 import { useTheme, Box, Typography } from "@mui/material";
 
-const PieChart = ({ currencyEx, currency, currencyCal }) => {
+const PieChart = ({ currencyEx, currency, currencyCal, height }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [totalExpense, setTotalExpense] = useState(null);
@@ -77,18 +76,11 @@ const PieChart = ({ currencyEx, currency, currencyCal }) => {
 
   return (
     <Box>
-      <Box>
-        <Header
-          title="Expense"
-          subtitle="Total expense breakdown by each brand"
-          note={currencyEx === currency.CAD ? "CAD $" : "USD $"}
-        />
-      </Box>
       <Box sx={{ textAlign: "center", mt: 6 }}>
         <Typography>Total Expense: {currencyCal(totalExpense)}</Typography>
       </Box>
 
-      <Box sx={{ height: 500 }}>
+      <Box sx={{ height: height }}>
         <ResponsivePie
           data={data}
           theme={{
@@ -167,7 +159,7 @@ const PieChart = ({ currencyEx, currency, currencyCal }) => {
               translateX: 0,
               translateY: 56,
               itemsSpacing: 0,
-              itemWidth: 100,
+              itemWidth: 70,
               itemHeight: 18,
               itemTextColor: "#999",
               itemDirection: "left-to-right",

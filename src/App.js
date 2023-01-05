@@ -6,13 +6,13 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
 
-import Dashboard from "./scenes/dashboard/Dashboard";
+import Dashboard from "./scenes/Dashboard/Dashboard";
 import Search from "./scenes/Search/Search";
 import Add from "./scenes/Add/Add";
 import Inventory from "./scenes/Inventory/Inventory";
-import PieChart from "./components/PieChart/PieChart";
-import BarChart from "./components/BarChart/BarChart";
-import Overview from "./scenes/Overview/Overview";
+import Expense from "./scenes/Expense/Index";
+import Comparison from "./scenes/BarChart/Index";
+import Overview from "./scenes/Overview/Index";
 
 const currency = {
   USD: 1,
@@ -74,7 +74,7 @@ const App = () => {
               <Route
                 path="/pie"
                 element={
-                  <PieChart
+                  <Expense
                     currencyEx={currencyEx}
                     currency={currency}
                     currencyCal={currencyCal}
@@ -84,7 +84,7 @@ const App = () => {
               <Route
                 path="/bar"
                 element={
-                  <BarChart
+                  <Comparison
                     currencyEx={currencyEx}
                     currency={currency}
                     currencyCal={currencyCal}

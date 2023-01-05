@@ -3,7 +3,7 @@ import { useTheme } from "@mui/material";
 import { ResponsiveBar } from "@nivo/bar";
 import { tokens } from "../../theme";
 import { Box } from "@mui/material";
-import Header from "../Header/Header";
+
 import axios from "axios";
 
 import InputLabel from "@mui/material/InputLabel";
@@ -94,13 +94,6 @@ const BarChart = ({ currencyEx, currency, currencyCal }) => {
   ];
   return (
     <Box>
-      <Box>
-        <Header
-          title="Comparison"
-          subtitle="Inventory comparison filtered by brand "
-          note={currencyEx === currency.CAD ? "CAD $" : "USD $"}
-        />
-      </Box>
       <Box sx={{ textAlign: "center", mt: 6 }}>
         <FormControl sx={{ width: 150 }} size="small">
           <InputLabel id="demo-simple-select-label">Brand</InputLabel>

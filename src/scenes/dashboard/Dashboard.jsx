@@ -1,16 +1,27 @@
 import Header from "../../components/Header/Header";
 import { Box, Typography, useTheme, IconButton } from "@mui/material";
-import StatBox from "../../components/StatBox/StatBox";
-import EmailIcon from "@mui/icons-material/Email";
-import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
+import { styled } from "@mui/material/styles";
+import Paper from "@mui/material/Paper";
+import Grid from "@mui/material/Grid";
 import { tokens } from "../../theme";
-import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
+import Transaction from "../../components/Transaction/Transaction";
+import PieChart from "../../components/PieChart/PieChart";
+import BarChart from "../../components/BarChart/BarChart";
 
 const Dashboard = ({ currencyEx, currencyCal, currency }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
+  const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: "center",
+    color: theme.palette.text.secondary,
+  }));
+
   return (
-    <Box sx={{ mt: 3 }}>
+    <Box sx={{ mt: 3, mx: 1 }}>
       <Box>
         <Header
           title="Dashboard"
@@ -18,91 +29,31 @@ const Dashboard = ({ currencyEx, currencyCal, currency }) => {
           note={currencyEx === currency.CAD ? "CAD $" : "USD $"}
         />
       </Box>
-      <Box
-        display="grid"
-        gridTemplateColumns="repeat(12, 1fr)"
-        gridAutoRows="140px"
-        gap="20px"
-      >
-        {/* ROW 1 */}
-        <Box
-          gridColumn="span 3"
-          backgroundColor={colors.primary[400]}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <StatBox
-            title="12,361"
-            subtitle="Total Expense"
-            progress="0.75"
-            // increase="+14%"
-            icon={
-              <EmailIcon
-                sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
+      <Box sx={{ flexGrow: 1 }}>
+        <Grid container spacing={2}>
+          <Grid item xs={6}>
+            <Item>
+              <PieChart
+                currencyEx={currencyEx}
+                currency={currency}
+                currencyCal={currencyCal}
+                height={200}
               />
-            }
-          />
-        </Box>
-        <Box
-          gridColumn="span 3"
-          backgroundColor={colors.primary[400]}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <StatBox
-            title="431,225"
-            subtitle="Total inventory quantity"
-            progress="0.50"
-            // increase="+21%"
-            icon={
-              <PointOfSaleIcon
-                sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
+            </Item>
+          </Grid>
+          <Grid item xs={8}>
+            <Item>xs=8</Item>
+          </Grid>
+          <Grid item xs={12}>
+            <Item>
+              <Transaction
+                currencyEx={currencyEx}
+                currency={currency}
+                currencyCal={currencyCal}
               />
-            }
-          />
-        </Box>
-        <Box
-          gridColumn="span 8"
-          gridRow="span 2"
-          backgroundColor={colors.primary[400]}
-        >
-          <Box
-            mt="25px"
-            p="0 30px"
-            display="flex "
-            justifyContent="space-between"
-            alignItems="center"
-          >
-            <Box>
-              <Typography
-                variant="h5"
-                fontWeight="600"
-                color={colors.grey[100]}
-              >
-                Revenue Generated
-              </Typography>
-              <Typography
-                variant="h3"
-                fontWeight="bold"
-                color={colors.greenAccent[500]}
-              >
-                $59,342.32
-              </Typography>
-            </Box>
-            <Box>
-              <IconButton>
-                <DownloadOutlinedIcon
-                  sx={{ fontSize: "26px", color: colors.greenAccent[500] }}
-                />
-              </IconButton>
-            </Box>
-          </Box>
-          {/* <Box height="250px" m="-20px 0 0 0">
-            <LineChart isDashboard={true} />
-          </Box> */}
-        </Box>
+            </Item>
+          </Grid>
+        </Grid>
       </Box>
     </Box>
   );
