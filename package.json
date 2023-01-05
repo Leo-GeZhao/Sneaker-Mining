@@ -1,6 +1,10 @@
 {
   "name": "sneaker_mining",
   "version": "0.1.0",
+  "engines": {
+    "node": "16.15.0",
+    "npm": "8.5.5"
+  },
   "private": true,
   "proxy": "http://localhost:3001",
   "dependencies": {
