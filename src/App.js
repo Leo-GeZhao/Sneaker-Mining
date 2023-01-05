@@ -6,7 +6,7 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
 
-import Dashboard from "./scenes/Dashboard/Dashboard";
+import Dashboard from "./scenes/dashboard/Dashboard";
 import Search from "./scenes/Search/Search";
 import Add from "./scenes/Add/Add";
 import Inventory from "./scenes/Inventory/Inventory";
