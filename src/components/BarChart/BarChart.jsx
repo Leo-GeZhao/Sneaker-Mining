@@ -25,27 +25,44 @@ const BarChart = ({ currencyEx, currency, currencyCal }) => {
       async function getInventoryByBrand() {
         const allInventory = await axios.get("/inventory");
 
-        const brandExpense = allInventory.data
-          .filter((i) => i.brand === brand)
-          .map((b) => b.size.length * b.expense)
+        console.log(allInventory.data);
+
+        const inventory = allInventory.data.filter((i) => i.brand === brand);
+
+        const brandExpense = inventory
+          .map(
+            (i) => i.size.filter((s) => s.isSold === false).length * i.expense
+          )
           .reduce((a, b) => a + b, 0);
         setExpense(brandExpense);
 
-        const inventory = allInventory.data.filter((i) => i.brand === brand);
         const brandHighestBid = inventory
           .map((i) =>
-            i.size.map((i) => i.highestBid).reduce((a, b) => a + b, 0)
+            i.size
+              .filter((i) => i.isSold === false)
+              .map((i) => i.highestBid)
+              .reduce((a, b) => a + b, 0)
           )
           .reduce((a, b) => a + b, 0);
         setHighestBid(brandHighestBid);
 
         const brandLowestAsk = inventory
-          .map((i) => i.size.map((i) => i.lowestAsk).reduce((a, b) => a + b, 0))
+          .map((i) =>
+            i.size
+              .filter((i) => i.isSold === false)
+              .map((i) => i.lowestAsk)
+              .reduce((a, b) => a + b, 0)
+          )
           .reduce((a, b) => a + b, 0);
         setLowestAsk(brandLowestAsk);
 
         const brandLastSale = inventory
-          .map((i) => i.size.map((i) => i.lastSale).reduce((a, b) => a + b, 0))
+          .map((i) =>
+            i.size
+              .filter((i) => i.isSold === false)
+              .map((i) => i.lastSale)
+              .reduce((a, b) => a + b, 0)
+          )
           .reduce((a, b) => a + b, 0);
         setLastSale(brandLastSale);
       }
@@ -56,22 +73,22 @@ const BarChart = ({ currencyEx, currency, currencyCal }) => {
   const data = [
     {
       comparison: "Expense",
-      expense: expense,
+      expense: currencyCal(expense),
       expenseColor: "hsl(229, 70%, 50%)",
     },
     {
       comparison: "Highest Bid",
-      "Highest Bid": highestBid,
+      "Highest Bid": currencyCal(highestBid),
       "Highest BidColor": "hsl(111, 70%, 50%)",
     },
     {
       comparison: "Lowest Ask",
-      "Lowest Ask": lowestAsk,
+      "Lowest Ask": currencyCal(lowestAsk),
       "Lowest AskColor": "hsl(106, 70%, 50%)",
     },
     {
       comparison: "Last Sale",
-      "Last Sale": lastSale,
+      "Last Sale": currencyCal(lastSale),
       "Last SaleColor": "hsl(9, 70%, 50%)",
     },
   ];

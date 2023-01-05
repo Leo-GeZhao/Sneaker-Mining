@@ -103,10 +103,10 @@ async function sold(req, res, next) {
 
 async function getTransaction(req, res, next) {
   try {
-    const test = await Inventory.find({
+    const transactions = await Inventory.find({
       "size.isSold": true,
     });
-    res.json(test);
+    res.json(transactions);
   } catch (err) {
     res.status(400).json(err);
   }

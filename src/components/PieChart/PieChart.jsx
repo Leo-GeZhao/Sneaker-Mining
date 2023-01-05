@@ -80,12 +80,12 @@ const PieChart = ({ currencyEx, currency, currencyCal }) => {
       <Box>
         <Header
           title="Expense"
-          subtitle="Expense breakdown by each brand"
+          subtitle="Total expense breakdown by each brand"
           note={currencyEx === currency.CAD ? "CAD $" : "USD $"}
         />
       </Box>
       <Box sx={{ textAlign: "center", mt: 6 }}>
-        <Typography>Total Expense: {totalExpense}</Typography>
+        <Typography>Total Expense: {currencyCal(totalExpense)}</Typography>
       </Box>
 
       <Box sx={{ height: 500 }}>
