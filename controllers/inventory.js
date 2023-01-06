@@ -1,5 +1,5 @@
 const Inventory = require("../models/inventory");
-const stockXAPI = require("stockx");
+const stockXAPI = require("stockx-api");
 const stockX = new stockXAPI();
 
 function search(req, res, next) {

@@ -37,9 +37,8 @@
     "react-router-dom": "^6.6.1",
     "react-scripts": "5.0.1",
     "serve-favicon": "^2.5.0",
-    "stockx-api": "^1.1.0",
-    "web-vitals": "^2.1.4",
-    "stockx": "https://github.com/Leo-GeZhao/stockx-api.git"
+    "stockx-api": "github:Leo-GeZhao/stockx-api",
+    "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
