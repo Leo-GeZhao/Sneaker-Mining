@@ -106,7 +106,8 @@ async function sold(req, res, next) {
 
     res.json();
   } catch (err) {
-    res.status(400).json(err);
+    res.status(400);
+    res.json(err);
   }
 }
 
