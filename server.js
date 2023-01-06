@@ -2,8 +2,8 @@ const express = require("express");
 const path = require("path");
 const favicon = require("serve-favicon");
 const logger = require("morgan");
-const StockXAPI = require("stockx-api");
-const stockX = new StockXAPI();
+const stockXAPI = require("stockx-api");
+const stockX = new stockXAPI();
 
 require("dotenv").config();
 require("./config/database");

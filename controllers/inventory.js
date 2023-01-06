@@ -1,6 +1,6 @@
 const Inventory = require("../models/inventory");
-const StockXAPI = require("stockx-api");
-const stockX = new StockXAPI();
+const stockXAPI = require("stockx-api");
+const stockX = new stockXAPI();
 
 async function create(req, res, next) {
   try {
