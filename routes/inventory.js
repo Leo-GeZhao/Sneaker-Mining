@@ -3,6 +3,7 @@ const router = express.Router();
 
 const inventoryCtrl = require("../controllers/inventory");
 
+router.post('"/search-sneaker', inventoryCtrl.search);
 router.post("/add", inventoryCtrl.create);
 router.get("/inventory", inventoryCtrl.index);
 router.post("/update", inventoryCtrl.update);

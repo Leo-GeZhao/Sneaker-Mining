@@ -2,6 +2,15 @@ const Inventory = require("../models/inventory");
 const stockXAPI = require("stockx-api");
 const stockX = new stockXAPI();
 
+function search(req, res, next) {
+  stockX
+    .fetchProductDetails(req.body.url)
+    .then((products) => res.send(products))
+    .catch((err) =>
+      console.log(`Error scraping product details: ${err.message}`)
+    );
+}
+
 async function create(req, res, next) {
   try {
     const inventory = new Inventory();
@@ -113,6 +122,7 @@ async function getTransaction(req, res, next) {
 }
 
 module.exports = {
+  search,
   create,
   index,
   update,
