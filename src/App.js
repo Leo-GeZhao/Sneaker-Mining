@@ -6,6 +6,7 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
 
+import Landing from "./scenes/Landing/Landing";
 import Dashboard from "./scenes/dashboard/Dashboard";
 import Search from "./scenes/Search/Search";
 import Add from "./scenes/Add/Add";
@@ -40,8 +41,9 @@ const App = () => {
               currency={currency}
             />
             <Routes>
+              <Route path="/" element={<Landing />} />
               <Route
-                path="/"
+                path="/dashboard"
                 element={
                   <Dashboard
                     currencyCal={currencyCal}
