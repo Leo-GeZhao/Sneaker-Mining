@@ -15,6 +15,8 @@ import Expense from "./scenes/Expense/Index";
 import Comparison from "./scenes/BarChart/Index";
 import Overview from "./scenes/Overview/Index";
 
+import { getUser } from "./utilities/service/user";
+
 const currency = {
   USD: 1,
   CAD: 1.36,
@@ -23,6 +25,9 @@ const currency = {
 const App = () => {
   const [theme, colorMode] = useMode();
   const [currencyEx, setCurrencyEx] = useState(currency.USD);
+  const [user, setUser] = useState(getUser);
+
+  console.log(user);
 
   const currencyCal = (price) => {
     return Math.floor(price * currencyEx);
@@ -41,7 +46,10 @@ const App = () => {
               currency={currency}
             />
             <Routes>
-              <Route path="/" element={<Landing />} />
+              <Route
+                path="/"
+                element={<Landing user={user} setUser={setUser} />}
+              />
               <Route
                 path="/dashboard"
                 element={
