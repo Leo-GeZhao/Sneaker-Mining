@@ -4,6 +4,7 @@ import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
 import "react-pro-sidebar/dist/css/styles.css";
 import { tokens } from "../../theme";
+import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
@@ -83,6 +84,20 @@ const Sidebar = () => {
             )}
           </MenuItem>
           <Box paddingLeft={isCollapsed ? undefined : "10%"}>
+            <Typography
+              variant="h6"
+              color={colors.grey[300]}
+              sx={{ m: "15px 0 5px 20px" }}
+            >
+              Profile
+            </Typography>
+            <Item
+              title="User"
+              to="/"
+              icon={<PersonOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
             <Item
               title="Dashboard"
               to="/dashboard"
@@ -90,7 +105,6 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
-
             <Typography
               variant="h6"
               color={colors.grey[300]}

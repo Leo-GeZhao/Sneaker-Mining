@@ -6,7 +6,7 @@ import { Box, IconButton, useTheme, Button } from "@mui/material";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
-import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
+
 import { TbCurrencyDollarCanadian } from "react-icons/tb";
 import { IoLogoUsd } from "react-icons/io";
 const Topbar = ({ currencyEx, setCurrencyEx, currency }) => {
@@ -32,11 +32,6 @@ const Topbar = ({ currencyEx, setCurrencyEx, currency }) => {
         </IconButton>
         <IconButton>
           <SettingsOutlinedIcon />
-        </IconButton>
-        <IconButton>
-          <Link to="/">
-            <PersonOutlinedIcon />
-          </Link>
         </IconButton>
       </Box>
     </Box>
