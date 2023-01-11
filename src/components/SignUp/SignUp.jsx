@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Box, TextField, Button } from "@mui/material";
 import { signUp } from "../../utilities/service/user";
+import { useNavigate } from "react-router-dom";
 
 const defaultState = {
   name: "",
@@ -12,6 +13,7 @@ const defaultState = {
 const SignUp = ({ colors, setUser }) => {
   const [formData, setFormData] = useState(defaultState);
   const { name, email, password, confirm } = formData;
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,6 +21,7 @@ const SignUp = ({ colors, setUser }) => {
     const data = { name, password, email };
     const user = await signUp(data);
     setUser(user);
+    navigate("/dashboard");
   };
 
   const handleChange = (e) => {

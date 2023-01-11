@@ -13,11 +13,11 @@ const Landing = ({ user, setUser }) => {
   const colors = tokens(theme.palette.mode);
   const [button, setButton] = useState("Login");
 
-  function handleLogOut() {
-    logout();
-    setUser(null);
-    // setShowGoogleSignIn(true);
-  }
+  //   function handleLogOut() {
+  //     logout();
+  //     setUser(null);
+  //     // setShowGoogleSignIn(true);
+  //   }
 
   return (
     <>
@@ -77,22 +77,6 @@ const Landing = ({ user, setUser }) => {
           </Box>
         </>
       )}
-      <Box
-        sx={{
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-        display="flex"
-      >
-        {user && (
-          <Logout
-            colors={colors}
-            handleLogout={handleLogOut}
-            setUser={setUser}
-          />
-        )}
-      </Box>
     </>
   );
 };

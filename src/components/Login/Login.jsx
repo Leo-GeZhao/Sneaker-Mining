@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { Box, TextField, Button } from "@mui/material";
 import { login } from "../../utilities/service/user";
+import { useNavigate } from "react-router-dom";
 
 const Login = ({ colors, setUser }) => {
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
   });
+  const navigate = useNavigate();
 
   function handleChange(evt) {
     setCredentials({ ...credentials, [evt.target.name]: evt.target.value });
@@ -17,6 +19,7 @@ const Login = ({ colors, setUser }) => {
     const user = await login(credentials);
     console.log(user);
     setUser(user);
+    navigate("/dashboard");
   };
   return (
     <Box

@@ -17,13 +17,16 @@ import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
   return (
     <MenuItem
       active={selected === title}
       style={{
         color: colors.grey[100],
       }}
-      onClick={() => setSelected(title)}
+      onClick={() => {
+        setSelected(title);
+      }}
       icon={icon}
     >
       <Typography>{title}</Typography>
@@ -32,7 +35,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
   );
 };
 
-const Sidebar = () => {
+const Sidebar = ({ user }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -91,13 +94,15 @@ const Sidebar = () => {
             >
               Profile
             </Typography>
-            <Item
-              title="User"
-              to="/"
-              icon={<PersonOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
+            {!user && (
+              <Item
+                title="User"
+                to="/"
+                icon={<PersonOutlinedIcon />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+            )}
             <Item
               title="Dashboard"
               to="/dashboard"

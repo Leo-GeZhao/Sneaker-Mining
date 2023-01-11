@@ -38,7 +38,7 @@ const App = () => {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <div className="app">
-          <Sidebar />
+          <Sidebar user={user} />
           <main className="content">
             <Topbar
               currencyEx={currencyEx}
@@ -46,71 +46,78 @@ const App = () => {
               currency={currency}
             />
             <Routes>
-              <Route
-                path="/"
-                element={<Landing user={user} setUser={setUser} />}
-              />
-              <Route
-                path="/dashboard"
-                element={
-                  <Dashboard
-                    currencyCal={currencyCal}
-                    currencyEx={currencyEx}
-                    currency={currency}
+              {!user ? (
+                <Route
+                  path="/"
+                  element={<Landing user={user} setUser={setUser} />}
+                />
+              ) : (
+                <>
+                  <Route
+                    path="/dashboard"
+                    element={
+                      <Dashboard
+                        currencyCal={currencyCal}
+                        currencyEx={currencyEx}
+                        currency={currency}
+                        setUser={setUser}
+                        user={user}
+                      />
+                    }
                   />
-                }
-              />
-              <Route
-                path="/search"
-                element={
-                  <Search
-                    currencyCal={currencyCal}
-                    currencyEx={currencyEx}
-                    currency={currency}
+                  <Route
+                    path="/search"
+                    element={
+                      <Search
+                        currencyCal={currencyCal}
+                        currencyEx={currencyEx}
+                        currency={currency}
+                      />
+                    }
                   />
-                }
-              />
-              <Route path="/add" element={<Add />} />
-              <Route
-                path="/inventory"
-                element={
-                  <Inventory
-                    currencyCal={currencyCal}
-                    currencyEx={currencyEx}
-                    currency={currency}
+                  <Route path="/add" element={<Add />} />
+                  <Route
+                    path="/inventory"
+                    element={
+                      <Inventory
+                        currencyCal={currencyCal}
+                        currencyEx={currencyEx}
+                        currency={currency}
+                      />
+                    }
                   />
-                }
-              />
-              <Route
-                path="/pie"
-                element={
-                  <Expense
-                    currencyEx={currencyEx}
-                    currency={currency}
-                    currencyCal={currencyCal}
+                  <Route
+                    path="/pie"
+                    element={
+                      <Expense
+                        currencyEx={currencyEx}
+                        currency={currency}
+                        currencyCal={currencyCal}
+                      />
+                    }
                   />
-                }
-              />
-              <Route
-                path="/bar"
-                element={
-                  <Comparison
-                    currencyEx={currencyEx}
-                    currency={currency}
-                    currencyCal={currencyCal}
+                  <Route
+                    path="/bar"
+                    element={
+                      <Comparison
+                        currencyEx={currencyEx}
+                        currency={currency}
+                        currencyCal={currencyCal}
+                      />
+                    }
                   />
-                }
-              />
-              <Route
-                path="/overview"
-                element={
-                  <Overview
-                    currencyEx={currencyEx}
-                    currency={currency}
-                    currencyCal={currencyCal}
+                  <Route
+                    path="/overview"
+                    element={
+                      <Overview
+                        currencyEx={currencyEx}
+                        currency={currency}
+                        currencyCal={currencyCal}
+                      />
+                    }
                   />
-                }
-              />
+                </>
+              )}
             </Routes>
           </main>
         </div>
