@@ -116,6 +116,7 @@ const App = () => {
                         currencyEx={currencyEx}
                         currency={currency}
                         currencyCal={currencyCal}
+                        user={user}
                       />
                     }
                   />

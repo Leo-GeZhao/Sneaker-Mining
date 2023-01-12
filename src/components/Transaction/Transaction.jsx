@@ -11,12 +11,14 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import Paper from "@mui/material/Paper";
 
-const Transaction = ({ currencyEx, currency, currencyCal }) => {
+const Transaction = ({ currencyEx, currency, currencyCal, user }) => {
   const [transactions, setTransactions] = useState([]);
 
   useEffect(function () {
     async function getTransactions() {
-      const transactions = await axios.get("/inventory/transactions");
+      console.log(user._id);
+      const data = { id: user._id };
+      const transactions = await axios.post("/inventory/transactions", data);
       console.log(transactions.data);
       setTransactions(transactions.data);
     }

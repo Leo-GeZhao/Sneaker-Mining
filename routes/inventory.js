@@ -10,6 +10,6 @@ router.post("/update", inventoryCtrl.update);
 router.delete("/inventory/:id/delete", inventoryCtrl.delete);
 router.delete("/inventory/:id/delete-size", inventoryCtrl.deleteSize);
 router.post("/inventory/:id/sold-size", inventoryCtrl.sold);
-router.get("/inventory/transactions", inventoryCtrl.getTransaction);
+router.post("/inventory/transactions", inventoryCtrl.getTransaction);
 
 module.exports = router;

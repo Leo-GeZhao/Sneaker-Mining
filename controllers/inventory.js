@@ -115,6 +115,7 @@ async function sold(req, res, next) {
 async function getTransaction(req, res, next) {
   try {
     const transactions = await Inventory.find({
+      user: req.body.id,
       "size.isSold": true,
     });
     res.json(transactions);
