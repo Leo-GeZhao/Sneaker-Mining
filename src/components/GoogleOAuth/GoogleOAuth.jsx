@@ -17,8 +17,7 @@ const GoogleOAuth = ({ setUser }) => {
   }
   useEffect(() => {
     window.google.accounts.id.initialize({
-      client_id:
-        "690168387372-a0j51g87mnunla5fuvaffi64247qdfvh.apps.googleusercontent.com",
+      client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
       callback: handleCallBackRes,
     });
     window.google.accounts.id.renderButton(
