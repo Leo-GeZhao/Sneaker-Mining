@@ -5,8 +5,7 @@ import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import SignUp from "../../components/SignUp/SignUp";
 import Login from "../../components/Login/Login";
-import Logout from "../../components/Logout/Logout";
-import { logout } from "../../utilities/service/user";
+import GoogleOAuth from "../../components/GoogleOAuth/GoogleOAuth";
 
 const Landing = ({ user, setUser }) => {
   const theme = useTheme();
@@ -56,6 +55,7 @@ const Landing = ({ user, setUser }) => {
                   color: colors.primary[100],
                   border: `1px solid ${colors.primary[100]}`,
                 }}
+                onClick={() => setButton("GoogleOAuth")}
               >
                 Google Auth
               </Button>
@@ -73,6 +73,9 @@ const Landing = ({ user, setUser }) => {
             {button === "Login" && <Login colors={colors} setUser={setUser} />}
             {button === "SignUp" && (
               <SignUp colors={colors} setUser={setUser} />
+            )}
+            {button === "GoogleOAuth" && (
+              <GoogleOAuth colors={colors} setUser={setUser} />
             )}
           </Box>
         </>
