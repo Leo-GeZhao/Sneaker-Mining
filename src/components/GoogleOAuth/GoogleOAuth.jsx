@@ -18,8 +18,11 @@ const GoogleOAuth = ({ setUser }) => {
   useEffect(() => {
     window.google.accounts.id.initialize({
       client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
+      //   client_id:
+      //     "690168387372-ptth21mthl3sn522gcev7nhddcas14ke.apps.googleusercontent.com",
       callback: handleCallBackRes,
     });
+
     window.google.accounts.id.renderButton(
       document.getElementById("signInDiv"),
       {
@@ -27,7 +30,7 @@ const GoogleOAuth = ({ setUser }) => {
         size: "large",
       }
     );
-  });
+  }, []);
 
   return (
     <Box
