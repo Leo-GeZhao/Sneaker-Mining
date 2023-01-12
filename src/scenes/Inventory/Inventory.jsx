@@ -18,17 +18,20 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
-const Inventory = ({ currencyEx, currencyCal, currency }) => {
+const Inventory = ({ currencyEx, currencyCal, currency, user }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [inventory, setInventory] = useState([]);
   const [finish, setFinish] = useState(false);
   const [brand, setBrand] = useState("Nike");
 
+  console.log(inventory);
+
   useEffect(
     function () {
       async function getInventory() {
-        const allInventory = await axios.get("/inventory");
+        const data = { id: user._id };
+        const allInventory = await axios.post("/inventory", data);
         const inventory = allInventory.data.filter((i) => i.brand === brand);
         setFinish(false);
         setInventory(inventory);

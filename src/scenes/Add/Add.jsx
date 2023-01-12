@@ -8,7 +8,7 @@ import Select from "@mui/material/Select";
 import { tokens } from "../../theme";
 import axios from "axios";
 
-const Add = () => {
+const Add = ({ user }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [url, setUrl] = useState("");
@@ -19,7 +19,7 @@ const Add = () => {
   const handleSubmit = async () => {
     const size = sizeStr[0].split(",").map(Number);
     const expense = Number(expenseStr);
-    const data = { url, size, expense, brand };
+    const data = { url, size, expense, brand, user };
     await axios.post("/add", data);
     setUrl("");
     setBrand("Nike");

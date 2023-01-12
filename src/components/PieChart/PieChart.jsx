@@ -4,7 +4,7 @@ import axios from "axios";
 import { tokens } from "../../theme";
 import { useTheme, Box, Typography } from "@mui/material";
 
-const PieChart = ({ currencyEx, currency, currencyCal, height }) => {
+const PieChart = ({ currencyEx, currency, currencyCal, height, user }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [totalExpense, setTotalExpense] = useState(null);
@@ -16,7 +16,8 @@ const PieChart = ({ currencyEx, currency, currencyCal, height }) => {
   useEffect(
     function () {
       async function getInventoryByBrand() {
-        const inventory = await axios.get("/inventory");
+        const data = { id: user._id };
+        const inventory = await axios.post("/inventory", data);
         const totalExpense = inventory.data
           .map((i) => i.size.length * i.expense)
           .reduce((a, b) => a + b, 0);

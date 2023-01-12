@@ -11,7 +11,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
-const BarChart = ({ currencyEx, currency, currencyCal }) => {
+const BarChart = ({ currencyEx, currency, currencyCal, user }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [brand, setBrand] = useState("Nike");
@@ -23,7 +23,8 @@ const BarChart = ({ currencyEx, currency, currencyCal }) => {
   useEffect(
     function () {
       async function getInventoryByBrand() {
-        const allInventory = await axios.get("/inventory");
+        const data = { id: user._id };
+        const allInventory = await axios.post("/inventory", data);
 
         console.log(allInventory.data);
 

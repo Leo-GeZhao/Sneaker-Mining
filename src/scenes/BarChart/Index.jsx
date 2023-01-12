@@ -3,7 +3,7 @@ import Header from "../../components/Header/Header";
 import BarChart from "../../components/BarChart/BarChart";
 import { Box } from "@mui/material";
 
-const Comparison = ({ currencyEx, currency, currencyCal }) => {
+const Comparison = ({ currencyEx, currency, currencyCal, user }) => {
   return (
     <Box>
       <Header
@@ -15,6 +15,7 @@ const Comparison = ({ currencyEx, currency, currencyCal }) => {
         currencyEx={currencyEx}
         currency={currency}
         currencyCal={currencyCal}
+        user={user}
       />
     </Box>
   );

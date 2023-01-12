@@ -1,7 +1,5 @@
 import { useContext } from "react";
 import { ColorModeContext, tokens } from "../../theme";
-import { Link } from "react-router-dom";
-import Landing from "../Landing/Landing";
 import { Box, IconButton, useTheme, Button } from "@mui/material";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";

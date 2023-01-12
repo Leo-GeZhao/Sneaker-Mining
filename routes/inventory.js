@@ -5,7 +5,7 @@ const inventoryCtrl = require("../controllers/inventory");
 
 router.post('"/search-sneaker', inventoryCtrl.search);
 router.post("/add", inventoryCtrl.create);
-router.get("/inventory", inventoryCtrl.index);
+router.post("/inventory", inventoryCtrl.index);
 router.post("/update", inventoryCtrl.update);
 router.delete("/inventory/:id/delete", inventoryCtrl.delete);
 router.delete("/inventory/:id/delete-size", inventoryCtrl.deleteSize);

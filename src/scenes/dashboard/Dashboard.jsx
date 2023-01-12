@@ -67,6 +67,7 @@ const Dashboard = ({ currencyEx, currencyCal, currency, setUser, user }) => {
                 currency={currency}
                 currencyCal={currencyCal}
                 height={200}
+                user={user}
               />
             </Item>
           </Grid>

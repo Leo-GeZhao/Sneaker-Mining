@@ -4,6 +4,11 @@ const sizeSchema = require("./sizeSchema");
 
 const inventorySchema = new Schema(
   {
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      require: true,
+    },
     name: {
       type: String,
     },

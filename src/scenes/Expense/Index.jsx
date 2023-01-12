@@ -3,7 +3,7 @@ import Header from "../../components/Header/Header";
 import PieChart from "../../components/PieChart/PieChart";
 import { Box } from "@mui/material";
 
-const Expense = ({ currencyEx, currency, currencyCal }) => {
+const Expense = ({ currencyEx, currency, currencyCal, user }) => {
   return (
     <Box>
       <Box>
@@ -18,6 +18,7 @@ const Expense = ({ currencyEx, currency, currencyCal }) => {
         currency={currency}
         currencyCal={currencyCal}
         height={500}
+        user={user}
       />
     </Box>
   );

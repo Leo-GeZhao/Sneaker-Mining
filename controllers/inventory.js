@@ -17,6 +17,7 @@ async function create(req, res, next) {
     const sneaker = await stockX.fetchProductDetails(req.body.url);
     inventory.name = sneaker.urlKey;
     inventory.image = sneaker.image;
+    inventory.user = req.body.user;
     inventory.url = req.body.url;
     inventory.expense = req.body.expense;
     inventory.brand = req.body.brand;
@@ -39,7 +40,7 @@ async function create(req, res, next) {
 
 async function index(req, res, next) {
   try {
-    const inventory = await Inventory.find({});
+    const inventory = await Inventory.find({ user: req.body.id });
     res.json(inventory);
   } catch (err) {
     res.status(400).json(err);

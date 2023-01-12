@@ -75,7 +75,7 @@ const App = () => {
                       />
                     }
                   />
-                  <Route path="/add" element={<Add />} />
+                  <Route path="/add" element={<Add user={user} />} />
                   <Route
                     path="/inventory"
                     element={
@@ -83,6 +83,7 @@ const App = () => {
                         currencyCal={currencyCal}
                         currencyEx={currencyEx}
                         currency={currency}
+                        user={user}
                       />
                     }
                   />
@@ -93,6 +94,7 @@ const App = () => {
                         currencyEx={currencyEx}
                         currency={currency}
                         currencyCal={currencyCal}
+                        user={user}
                       />
                     }
                   />
@@ -103,6 +105,7 @@ const App = () => {
                         currencyEx={currencyEx}
                         currency={currency}
                         currencyCal={currencyCal}
+                        user={user}
                       />
                     }
                   />
