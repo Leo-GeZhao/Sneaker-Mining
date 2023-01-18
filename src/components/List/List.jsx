@@ -32,8 +32,8 @@ const List = ({
   const colors = tokens(theme.palette.mode);
   const [inventorySize, setInventorySize] = useState(0);
   const [open, setOpen] = useState(false);
-  const [soldSize, setSoldSize] = useState("");
-  const [soldPrice, setSoldPrice] = useState("");
+  const [soldSize, setSoldSize] = useState(null);
+  const [soldPrice, setSoldPrice] = useState(null);
 
   const handleClickOpen = (e) => {
     setSoldSize(e.target.textContent);
