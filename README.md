@@ -10,7 +10,7 @@
 
 <img src = "public/ReadMe/Search.png">
 
-- User can search the latest information/status about any sneaker from StockX
+- User can search the latest information/status about any sneaker from StockX.
 
 ## Add Inventory Page
 
