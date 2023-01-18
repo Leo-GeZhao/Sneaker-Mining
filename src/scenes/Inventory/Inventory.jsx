@@ -25,8 +25,6 @@ const Inventory = ({ currencyEx, currencyCal, currency, user }) => {
   const [finish, setFinish] = useState(false);
   const [brand, setBrand] = useState("Nike");
 
-  console.log(inventory);
-
   useEffect(
     function () {
       async function getInventory() {

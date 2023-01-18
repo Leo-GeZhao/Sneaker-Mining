@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import * as transactionAPI from "../../utilities/api/transaction";
 import { Box, Button, ButtonGroup, useTheme, Badge } from "@mui/material";
 import { tokens } from "../../theme";
 import Image from "mui-image";
@@ -42,8 +43,24 @@ const List = ({
   const handleClose = async () => {
     const id = inventory._id;
     const data = { soldPrice, soldSize };
-    const test = await axios.post(`/inventory/${id}/sold-size`, data);
-    console.log(test);
+    const soldInformation = await axios.post(
+      `/inventory/${id}/sold-size`,
+      data
+    );
+
+    const { brand, name, image, expense, user } = soldInformation.data;
+    const soldItem = {
+      brand,
+      name,
+      image,
+      expense,
+      user,
+      size: soldSize,
+      price: soldPrice,
+    };
+
+    await transactionAPI.createTransaction(soldItem);
+
     setFinish(true);
     setOpen(false);
   };

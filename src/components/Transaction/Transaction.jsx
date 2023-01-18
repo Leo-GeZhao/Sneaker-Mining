@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Box, Typography, Button } from "@mui/material";
 import Image from "mui-image";
 import axios from "axios";
+import * as transactionAPI from "../../utilities/api/transaction";
 
 import TableRow from "@mui/material/TableRow";
 import Table from "@mui/material/Table";
@@ -18,12 +19,15 @@ const Transaction = ({ currencyEx, currency, currencyCal, user }) => {
     async function getTransactions() {
       console.log(user._id);
       const data = { id: user._id };
-      const transactions = await axios.post("/inventory/transactions", data);
+      // const transactions = await axios.post("/inventory/transactions", data);
+      const transactions = await transactionAPI.getTransactions(data);
       console.log(transactions.data);
       setTransactions(transactions.data);
     }
     getTransactions();
   }, []);
+
+  console.log(transactions);
   return (
     <Box>
       <Box>
@@ -65,13 +69,7 @@ const Transaction = ({ currencyEx, currency, currencyCal, user }) => {
               align="right"
               sx={{ width: "15%" }}
             >
-              {t.size
-                .filter((s) => s.isSold === true)
-                .map((a, idx) => (
-                  <Box>
-                    <Typography>{a.size}</Typography>
-                  </Box>
-                ))}
+              {t.size}
             </TableCell>
             <TableCell
               component="th"
@@ -79,13 +77,15 @@ const Transaction = ({ currencyEx, currency, currencyCal, user }) => {
               align="right"
               sx={{ width: "20%" }}
             >
-              {t.size
-                .filter((s) => s.isSold === true)
-                .map((a) => (
-                  <Box>
-                    <Typography>{currencyCal(a.soldPrice)}</Typography>
-                  </Box>
-                ))}
+              {t.price}
+            </TableCell>
+            <TableCell
+              component="th"
+              scope="row"
+              align="right"
+              sx={{ width: "20%" }}
+            >
+              {t.createdAt.substring(0, 10)}
             </TableCell>
             <TableCell
               component="th"
@@ -93,29 +93,7 @@ const Transaction = ({ currencyEx, currency, currencyCal, user }) => {
               align="right"
               sx={{ width: "25%" }}
             >
-              {t.size
-                .filter((s) => s.isSold === true)
-                .map((a) => (
-                  <Box>
-                    <Typography>{a.updatedAt.substring(0, 10)}</Typography>
-                  </Box>
-                ))}
-            </TableCell>
-            <TableCell
-              component="th"
-              scope="row"
-              align="right"
-              sx={{ width: "20%" }}
-            >
-              {t.size
-                .filter((s) => s.isSold === true)
-                .map((a) => (
-                  <Box>
-                    <Typography>
-                      {currencyCal(a.soldPrice - t.expense)}
-                    </Typography>
-                  </Box>
-                ))}
+              {t.profit}
             </TableCell>
           </TableRow>
         ))}

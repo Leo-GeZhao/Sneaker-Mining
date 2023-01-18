@@ -95,7 +95,7 @@ async function deleteSize(req, res, next) {
 
 async function sold(req, res, next) {
   try {
-    const transaction = await Inventory.updateOne(
+    await Inventory.updateOne(
       {
         _id: req.params.id,
         "size.size": req.body.soldSize,
@@ -105,7 +105,9 @@ async function sold(req, res, next) {
       }
     );
 
-    res.json(transaction);
+    const soldInventory = await Inventory.findById(req.params.id);
+
+    res.json(soldInventory);
   } catch (err) {
     res.status(400);
     res.json(err);
