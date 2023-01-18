@@ -37,7 +37,7 @@ const Dashboard = ({
     // setShowGoogleSignIn(true);
   }
 
-  console.log(transactions);
+  const displayTransaction = transactions.slice(0, 2);
 
   return (
     <Box sx={{ mt: 3, mx: 1 }}>
@@ -119,7 +119,7 @@ const Dashboard = ({
                 currency={currency}
                 currencyCal={currencyCal}
                 user={user}
-                transactions={transactions}
+                transactions={displayTransaction}
               />
             </Item>
           </Grid>

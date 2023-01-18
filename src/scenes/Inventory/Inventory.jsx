@@ -18,11 +18,18 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
-const Inventory = ({ currencyEx, currencyCal, currency, user }) => {
+const Inventory = ({
+  currencyEx,
+  currencyCal,
+  currency,
+  user,
+  finish,
+  setFinish,
+}) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [inventory, setInventory] = useState([]);
-  const [finish, setFinish] = useState(false);
+
   const [brand, setBrand] = useState("Nike");
 
   useEffect(

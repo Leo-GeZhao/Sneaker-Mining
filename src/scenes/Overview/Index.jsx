@@ -8,6 +8,7 @@ const Overview = ({
   currencyCal,
   user,
   transactions,
+  setFinish,
 }) => {
   return (
     <Box sx={{ mt: 3 }}>
@@ -25,6 +26,7 @@ const Overview = ({
           currencyCal={currencyCal}
           user={user}
           transactions={transactions}
+          setFinish={setFinish}
         />
       </Box>
     </Box>
