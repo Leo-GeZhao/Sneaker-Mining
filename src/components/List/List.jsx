@@ -39,10 +39,11 @@ const List = ({
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const handleClose = async () => {
     const id = inventory._id;
     const data = { soldPrice, soldSize };
-    axios.post(`/inventory/${id}/sold-size`, data);
+    const test = await axios.post(`/inventory/${id}/sold-size`, data);
+    console.log(test);
     setFinish(true);
     setOpen(false);
   };
