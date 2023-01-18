@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
+import * as transactionAPI from "./utilities/api/transaction";
 import { ColorModeContext, useMode } from "./theme";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 
@@ -27,7 +28,18 @@ const App = () => {
   const [currencyEx, setCurrencyEx] = useState(currency.USD);
   const [user, setUser] = useState(getUser);
 
-  console.log(user);
+  const [transactions, setTransactions] = useState([]);
+
+  useEffect(function () {
+    async function getTransactions() {
+      console.log(user._id);
+      const data = { id: user._id };
+      const transactions = await transactionAPI.getTransactions(data);
+      console.log(transactions.data);
+      setTransactions(transactions.data);
+    }
+    getTransactions();
+  }, []);
 
   const currencyCal = (price) => {
     return Math.floor(price * currencyEx);
@@ -62,6 +74,7 @@ const App = () => {
                         currency={currency}
                         setUser={setUser}
                         user={user}
+                        transactions={transactions}
                       />
                     }
                   />
@@ -117,6 +130,7 @@ const App = () => {
                         currency={currency}
                         currencyCal={currencyCal}
                         user={user}
+                        transactions={transactions}
                       />
                     }
                   />

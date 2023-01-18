@@ -2,7 +2,13 @@ import Header from "../../components/Header/Header";
 import Transaction from "../../components/Transaction/Transaction";
 import { Box } from "@mui/material";
 
-const Overview = ({ currencyEx, currency, currencyCal, user }) => {
+const Overview = ({
+  currencyEx,
+  currency,
+  currencyCal,
+  user,
+  transactions,
+}) => {
   return (
     <Box sx={{ mt: 3 }}>
       <Box>
@@ -18,6 +24,7 @@ const Overview = ({ currencyEx, currency, currencyCal, user }) => {
           currency={currency}
           currencyCal={currencyCal}
           user={user}
+          transactions={transactions}
         />
       </Box>
     </Box>

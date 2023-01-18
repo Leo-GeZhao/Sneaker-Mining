@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Box, Typography, Button } from "@mui/material";
 import Image from "mui-image";
-import axios from "axios";
-import * as transactionAPI from "../../utilities/api/transaction";
 
 import TableRow from "@mui/material/TableRow";
 import Table from "@mui/material/Table";
@@ -12,22 +10,13 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import Paper from "@mui/material/Paper";
 
-const Transaction = ({ currencyEx, currency, currencyCal, user }) => {
-  const [transactions, setTransactions] = useState([]);
-
-  useEffect(function () {
-    async function getTransactions() {
-      console.log(user._id);
-      const data = { id: user._id };
-      // const transactions = await axios.post("/inventory/transactions", data);
-      const transactions = await transactionAPI.getTransactions(data);
-      console.log(transactions.data);
-      setTransactions(transactions.data);
-    }
-    getTransactions();
-  }, []);
-
-  console.log(transactions);
+const Transaction = ({
+  currencyEx,
+  currency,
+  currencyCal,
+  user,
+  transactions,
+}) => {
   return (
     <Box>
       <Box>

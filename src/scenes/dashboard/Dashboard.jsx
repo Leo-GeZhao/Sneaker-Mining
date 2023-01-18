@@ -10,7 +10,14 @@ import Logout from "../../components/Logout/Logout";
 import { logout } from "../../utilities/service/user";
 import { useNavigate } from "react-router-dom";
 
-const Dashboard = ({ currencyEx, currencyCal, currency, setUser, user }) => {
+const Dashboard = ({
+  currencyEx,
+  currencyCal,
+  currency,
+  setUser,
+  user,
+  transactions,
+}) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const navigate = useNavigate();
@@ -29,6 +36,8 @@ const Dashboard = ({ currencyEx, currencyCal, currency, setUser, user }) => {
     navigate("/");
     // setShowGoogleSignIn(true);
   }
+
+  console.log(transactions);
 
   return (
     <Box sx={{ mt: 3, mx: 1 }}>
@@ -60,7 +69,38 @@ const Dashboard = ({ currencyEx, currencyCal, currency, setUser, user }) => {
               </Box>
             </Item>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={4}>
+            <Item sx={{ marginBottom: "20px" }}>
+              <Box
+                display="flex"
+                sx={{
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Typography sx={{ mb: 2 }}>
+                  Total Sold Item: {transactions.length}
+                </Typography>
+              </Box>
+            </Item>
+            <Item>
+              <Box
+                display="flex"
+                sx={{
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Typography sx={{ mb: 2 }}>
+                  Total Profit:{" "}
+                  {transactions.map((t) => t.profit).reduce((a, b) => a + b, 0)}
+                </Typography>
+              </Box>
+            </Item>
+          </Grid>
+          <Grid item xs={8}>
             <Item>
               <PieChart
                 currencyEx={currencyEx}
@@ -71,6 +111,7 @@ const Dashboard = ({ currencyEx, currencyCal, currency, setUser, user }) => {
               />
             </Item>
           </Grid>
+
           <Grid item xs={12}>
             <Item>
               <Transaction
@@ -78,6 +119,7 @@ const Dashboard = ({ currencyEx, currencyCal, currency, setUser, user }) => {
                 currency={currency}
                 currencyCal={currencyCal}
                 user={user}
+                transactions={transactions}
               />
             </Item>
           </Grid>
