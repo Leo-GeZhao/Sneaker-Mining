@@ -56,7 +56,7 @@ const Search = ({ currencyEx, currencyCal, currency }) => {
       >
         <InputBase
           sx={{ ml: 2, flex: 1 }}
-          placeholder="Sneaker Name"
+          placeholder="Sneaker URL"
           onChange={handleChange}
           value={url}
         />
