@@ -41,28 +41,35 @@ const List = ({
   };
 
   const handleClose = async () => {
+    setOpen(false);
+    setSoldPrice(null);
+  };
+
+  const handleSubmit = async () => {
     const id = inventory._id;
     const data = { soldPrice, soldSize };
-    const soldInformation = await axios.post(
-      `/inventory/${id}/sold-size`,
-      data
-    );
 
-    const { brand, name, image, expense, user } = soldInformation.data;
-    const soldItem = {
-      brand,
-      name,
-      image,
-      expense,
-      user,
-      size: soldSize,
-      price: soldPrice,
-    };
+    if (!!data.soldPrice) {
+      const soldInformation = await axios.post(
+        `/inventory/${id}/sold-size`,
+        data
+      );
 
-    await transactionAPI.createTransaction(soldItem);
+      const { brand, name, image, expense, user } = soldInformation.data;
+      const soldItem = {
+        brand,
+        name,
+        image,
+        expense,
+        user,
+        size: soldSize,
+        price: soldPrice,
+      };
 
+      await transactionAPI.createTransaction(soldItem);
+    }
     setFinish(true);
-    setOpen(false);
+    handleClose();
   };
 
   const handleUpdate = async (url, id, size, e) => {
@@ -197,7 +204,7 @@ const List = ({
                     />
                   </DialogContent>
                   <DialogActions>
-                    <Button onClick={handleClose}>Confirm</Button>
+                    <Button onClick={handleSubmit}>Confirm</Button>
                   </DialogActions>
                 </Dialog>
               </Select>
