@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Header from "../../components/Header/Header";
 import List from "../../components/List/List";
 import { tokens } from "../../theme";
-import axios from "axios";
+import * as inventoryAPI from "../../utilities/api/inventory";
 import { Box, useTheme } from "@mui/material";
 
 import Table from "@mui/material/Table";
@@ -36,7 +36,7 @@ const Inventory = ({
     function () {
       async function getInventory() {
         const data = { id: user._id };
-        const allInventory = await axios.post("/inventory", data);
+        const allInventory = await inventoryAPI.getAll(data);
         const inventory = allInventory.data.filter((i) => i.brand === brand);
         setFinish(false);
         setInventory(inventory);

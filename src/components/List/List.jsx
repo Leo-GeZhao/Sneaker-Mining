@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import * as inventoryAPI from "../../utilities/api/inventory";
 import * as transactionAPI from "../../utilities/api/transaction";
 import { Box, Button, ButtonGroup, useTheme, Badge } from "@mui/material";
 import { tokens } from "../../theme";
@@ -50,10 +50,7 @@ const List = ({
     const data = { soldPrice, soldSize };
 
     if (!!data.soldPrice) {
-      const soldInformation = await axios.post(
-        `/inventory/${id}/sold-size`,
-        data
-      );
+      const soldInformation = await inventoryAPI.sold(id, data);
 
       const { brand, name, image, expense, user } = soldInformation.data;
       const soldItem = {
@@ -74,7 +71,7 @@ const List = ({
 
   const handleUpdate = async (url, id, size, e) => {
     const data = { url, id, size };
-    await axios.post("/update", data);
+    await inventoryAPI.update(data);
     e.target.textContent = "updated!";
     setFinish(true);
   };
@@ -82,12 +79,12 @@ const List = ({
   const handleDeleteSize = async (size) => {
     const id = inventory._id;
     if (size === "all") {
-      axios.delete(`/inventory/${id}/delete`);
-      setFinish(true);
+      await inventoryAPI.deleteAll(id);
     } else {
-      axios.delete(`/inventory/${id}/delete-size`, { data: { size: size } });
-      setFinish(true);
+      const data = { size: size };
+      await inventoryAPI.deleteOne(id, data);
     }
+    setFinish(true);
   };
 
   return (

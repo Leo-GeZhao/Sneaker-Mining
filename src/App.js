@@ -34,10 +34,8 @@ const App = () => {
   useEffect(
     function () {
       async function getTransactions() {
-        console.log(user._id);
         const data = { id: user._id };
         const transactions = await transactionAPI.getTransactions(data);
-        console.log(transactions.data);
         setTransactions(transactions.data);
       }
       getTransactions();

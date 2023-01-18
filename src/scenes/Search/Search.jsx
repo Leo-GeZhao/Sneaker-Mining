@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { tokens } from "../../theme";
-import axios from "axios";
+import * as inventoryAPI from "../../utilities/api/inventory";
 import {
   Box,
   IconButton,
@@ -29,9 +29,9 @@ const Search = ({ currencyEx, currencyCal, currency }) => {
   };
 
   const onSneakerSearch = async () => {
-    await axios
-      .post("/search-sneaker", { url })
-      .then((prod) => setSneaker(prod.data));
+    const data = { url };
+    const prod = await inventoryAPI.search(data);
+    setSneaker(prod.data);
     setUrl("");
   };
 

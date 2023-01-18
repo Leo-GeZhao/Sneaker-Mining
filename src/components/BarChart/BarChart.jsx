@@ -4,7 +4,7 @@ import { ResponsiveBar } from "@nivo/bar";
 import { tokens } from "../../theme";
 import { Box } from "@mui/material";
 
-import axios from "axios";
+import * as inventoryAPI from "../../utilities/api/inventory";
 
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -24,7 +24,7 @@ const BarChart = ({ currencyEx, currency, currencyCal, user }) => {
     function () {
       async function getInventoryByBrand() {
         const data = { id: user._id };
-        const allInventory = await axios.post("/inventory", data);
+        const allInventory = await inventoryAPI.getAll(data);
 
         console.log(allInventory.data);
 

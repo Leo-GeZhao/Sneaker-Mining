@@ -54,7 +54,6 @@ async function update(req, res, next) {
     req.body.size.map((s) => {
       const updateDetail = sneaker.variants.filter((size) => size.size == s);
       var detail = inventory.size.filter((size) => size.size == s);
-      console.log(updateDetail[0].lowestAsk);
       detail[0].highestBid = updateDetail[0].market.highestBid;
       detail[0].lowestAsk = updateDetail[0].market.lowestAsk;
       detail[0].lastSale = updateDetail[0].market.lastSale;
@@ -68,8 +67,7 @@ async function update(req, res, next) {
 
 async function deleteOne(req, res, next) {
   try {
-    const inventory = await Inventory.findByIdAndDelete(req.params.id);
-    console.log(inventory);
+    await Inventory.findByIdAndDelete(req.params.id);
     res.json();
   } catch (err) {
     res.status(400).json(err);
@@ -88,6 +86,7 @@ async function deleteSize(req, res, next) {
         },
       });
     }
+    res.status(200).json();
   } catch (err) {
     res.status(400).json(err);
   }
@@ -114,18 +113,6 @@ async function sold(req, res, next) {
   }
 }
 
-async function getTransaction(req, res, next) {
-  try {
-    const transactions = await Inventory.find({
-      user: req.body.id,
-      "size.isSold": true,
-    });
-    res.json(transactions);
-  } catch (err) {
-    res.status(400).json(err);
-  }
-}
-
 module.exports = {
   search,
   create,
@@ -134,5 +121,4 @@ module.exports = {
   delete: deleteOne,
   deleteSize,
   sold,
-  getTransaction,
 };

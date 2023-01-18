@@ -3,13 +3,12 @@ const router = express.Router();
 
 const inventoryCtrl = require("../controllers/inventory");
 
+router.post("/", inventoryCtrl.index);
 router.post("/search-sneaker", inventoryCtrl.search);
 router.post("/add", inventoryCtrl.create);
-router.post("/inventory", inventoryCtrl.index);
 router.post("/update", inventoryCtrl.update);
-router.delete("/inventory/:id/delete", inventoryCtrl.delete);
-router.delete("/inventory/:id/delete-size", inventoryCtrl.deleteSize);
-router.post("/inventory/:id/sold-size", inventoryCtrl.sold);
-router.post("/inventory/transactions", inventoryCtrl.getTransaction);
+router.delete("/:id/delete", inventoryCtrl.delete);
+router.post("/:id/delete-size", inventoryCtrl.deleteSize);
+router.post("/:id/sold-size", inventoryCtrl.sold);
 
 module.exports = router;

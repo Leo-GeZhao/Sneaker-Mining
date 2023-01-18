@@ -1,9 +1,7 @@
-const transaction = require("../models/transaction");
 const Transaction = require("../models/transaction");
 
 async function create(req, res) {
   try {
-    console.log(req.body);
     const transaction = new Transaction();
     transaction.user = req.body.user;
     transaction.name = req.body.name;
@@ -23,7 +21,6 @@ async function create(req, res) {
 async function index(req, res) {
   try {
     const transactions = await Transaction.find({ user: req.body.id });
-    console.log(transactions);
     res.status(200).json(transactions);
   } catch (err) {
     res.status(400).json(err);

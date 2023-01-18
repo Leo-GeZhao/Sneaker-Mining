@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { ResponsivePie } from "@nivo/pie";
-import axios from "axios";
+import * as inventoryAPI from "../../utilities/api/inventory";
 import { tokens } from "../../theme";
 import { useTheme, Box, Typography } from "@mui/material";
 
@@ -17,7 +17,7 @@ const PieChart = ({ currencyEx, currency, currencyCal, height, user }) => {
     function () {
       async function getInventoryByBrand() {
         const data = { id: user._id };
-        const inventory = await axios.post("/inventory", data);
+        const inventory = await inventoryAPI.getAll(data);
         const totalExpense = inventory.data
           .map((i) => i.size.length * i.expense)
           .reduce((a, b) => a + b, 0);

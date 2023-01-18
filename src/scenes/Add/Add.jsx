@@ -1,4 +1,5 @@
 import { useState } from "react";
+import * as inventoryAPI from "../../utilities/api/inventory";
 import Header from "../../components/Header/Header";
 import { Box, useTheme, TextField, Button } from "@mui/material";
 import InputLabel from "@mui/material/InputLabel";
@@ -6,7 +7,6 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { tokens } from "../../theme";
-import axios from "axios";
 
 const Add = ({ user }) => {
   const theme = useTheme();
@@ -20,7 +20,7 @@ const Add = ({ user }) => {
     const size = sizeStr[0].split(",").map(Number);
     const expense = Number(expenseStr);
     const data = { url, size, expense, brand, user };
-    await axios.post("/add", data);
+    await inventoryAPI.add(data);
     setUrl("");
     setBrand("Nike");
     setExpenseStr("");
