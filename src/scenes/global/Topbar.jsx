@@ -1,13 +1,16 @@
 import { useContext } from "react";
-import { ColorModeContext, tokens } from "../../theme";
-import { Box, IconButton, useTheme, Button } from "@mui/material";
+
+import { Box, IconButton, useTheme } from "@mui/material";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
-
 import { TbCurrencyDollarCanadian } from "react-icons/tb";
 import { IoLogoUsd } from "react-icons/io";
-const Topbar = ({ currencyEx, setCurrencyEx, currency }) => {
+
+//Color Theme
+import { ColorModeContext, tokens } from "../../theme";
+
+const Topbar = ({ setCurrencyEx, currency }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);

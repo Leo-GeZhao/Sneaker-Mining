@@ -1,22 +1,21 @@
 import React, { useState } from "react";
-import { Box, TextField, useTheme } from "@mui/material";
-import { tokens } from "../../theme";
+
+import { Box, useTheme } from "@mui/material";
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
+
+//Components
 import SignUp from "../../components/SignUp/SignUp";
 import Login from "../../components/Login/Login";
 import GoogleOAuth from "../../components/GoogleOAuth/GoogleOAuth";
+
+//Color Theme
+import { tokens } from "../../theme";
 
 const Landing = ({ user, setUser }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [button, setButton] = useState("Login");
-
-  //   function handleLogOut() {
-  //     logout();
-  //     setUser(null);
-  //     // setShowGoogleSignIn(true);
-  //   }
 
   return (
     <>

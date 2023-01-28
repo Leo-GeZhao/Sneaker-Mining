@@ -1,18 +1,13 @@
 import React, { useState } from "react";
-import * as inventoryAPI from "../../utilities/api/inventory";
-import * as transactionAPI from "../../utilities/api/transaction";
-import { Box, Button, ButtonGroup, useTheme, Badge } from "@mui/material";
-import { tokens } from "../../theme";
-import Image from "mui-image";
 
+import { Box, Button, ButtonGroup, useTheme } from "@mui/material";
+import Image from "mui-image";
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
-
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -20,14 +15,14 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
-const List = ({
-  inventory,
-  currencyEx,
-  currencyCal,
-  currency,
-  setFinish,
-  finish,
-}) => {
+//APIs
+import * as inventoryAPI from "../../utilities/api/inventory";
+import * as transactionAPI from "../../utilities/api/transaction";
+
+//Color Theme
+import { tokens } from "../../theme";
+
+const List = ({ inventory, currencyCal, setFinish }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [inventorySize, setInventorySize] = useState(0);
@@ -35,23 +30,45 @@ const List = ({
   const [soldSize, setSoldSize] = useState(null);
   const [soldPrice, setSoldPrice] = useState(null);
 
+  //Handle Modal Open
   const handleClickOpen = (e) => {
     setSoldSize(e.target.textContent);
     setOpen(true);
   };
 
+  //Handle Modal Close
   const handleClose = async () => {
     setOpen(false);
     setSoldPrice(null);
   };
 
+  //Handle Update Inventory Detail From StockXAPI
+  const handleUpdate = async (url, id, size, e) => {
+    const data = { url, id, size };
+    await inventoryAPI.update(data);
+    e.target.textContent = "updated!";
+    setFinish(true);
+  };
+
+  //Handle Delete Inventory Size
+  const handleDeleteSize = async (size) => {
+    const id = inventory._id;
+    if (size === "all") {
+      await inventoryAPI.deleteAll(id);
+    } else {
+      const data = { size: size };
+      await inventoryAPI.deleteOne(id, data);
+    }
+    setFinish(true);
+  };
+
+  //Handle Create Sold Transaction
   const handleSubmit = async () => {
     const id = inventory._id;
     const data = { soldPrice, soldSize };
-
     if (!!data.soldPrice) {
       const soldInformation = await inventoryAPI.sold(id, data);
-
+      console.log(soldInformation);
       const { brand, name, image, expense, user } = soldInformation.data;
       const soldItem = {
         brand,
@@ -62,29 +79,10 @@ const List = ({
         size: soldSize,
         price: soldPrice,
       };
-
       await transactionAPI.createTransaction(soldItem);
     }
     setFinish(true);
     handleClose();
-  };
-
-  const handleUpdate = async (url, id, size, e) => {
-    const data = { url, id, size };
-    await inventoryAPI.update(data);
-    e.target.textContent = "updated!";
-    setFinish(true);
-  };
-
-  const handleDeleteSize = async (size) => {
-    const id = inventory._id;
-    if (size === "all") {
-      await inventoryAPI.deleteAll(id);
-    } else {
-      const data = { size: size };
-      await inventoryAPI.deleteOne(id, data);
-    }
-    setFinish(true);
   };
 
   return (

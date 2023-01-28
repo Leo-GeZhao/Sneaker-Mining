@@ -1,19 +1,26 @@
 import React, { useState } from "react";
-import { Box, TextField, Button } from "@mui/material";
-import { login } from "../../utilities/service/user";
 import { useNavigate } from "react-router-dom";
+
+import { Box, TextField, Button } from "@mui/material";
+
+//User Login
+import { login } from "../../utilities/service/user";
 
 const Login = ({ colors, setUser }) => {
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
   });
+
+  //Navigate to other Pages
   const navigate = useNavigate();
 
-  function handleChange(evt) {
-    setCredentials({ ...credentials, [evt.target.name]: evt.target.value });
-  }
+  //Handle User Login State Change
+  const handleChange = (e) => {
+    setCredentials({ ...credentials, [e.target.name]: e.target.value });
+  };
 
+  //Handle User Login
   const handleSubmit = async (e) => {
     e.preventDefault();
     const user = await login(credentials);
@@ -21,6 +28,7 @@ const Login = ({ colors, setUser }) => {
     setUser(user);
     navigate("/dashboard");
   };
+
   return (
     <Box
       component="form"

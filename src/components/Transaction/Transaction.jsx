@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { Box, Typography, Button } from "@mui/material";
-import Image from "mui-image";
+import React from "react";
 
+import { Box } from "@mui/material";
+import Image from "mui-image";
 import TableRow from "@mui/material/TableRow";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -10,13 +10,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import Paper from "@mui/material/Paper";
 
-const Transaction = ({
-  currencyEx,
-  currency,
-  currencyCal,
-  user,
-  transactions,
-}) => {
+const Transaction = ({ transactions, currencyCal }) => {
   return (
     <Box>
       <Box>
@@ -66,7 +60,7 @@ const Transaction = ({
               align="right"
               sx={{ width: "20%" }}
             >
-              {t.price}
+              {currencyCal(t.price)}
             </TableCell>
             <TableCell
               component="th"
@@ -82,7 +76,7 @@ const Transaction = ({
               align="right"
               sx={{ width: "25%" }}
             >
-              {t.profit}
+              {currencyCal(t.profit)}
             </TableCell>
           </TableRow>
         ))}

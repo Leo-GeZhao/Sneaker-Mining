@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { tokens } from "../../theme";
-import * as inventoryAPI from "../../utilities/api/inventory";
 import {
   Box,
   IconButton,
@@ -10,24 +8,34 @@ import {
   Button,
 } from "@mui/material";
 
+//Components
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import Header from "../../components/Header/Header";
+
+//Inventory API
+import * as inventoryAPI from "../../utilities/api/inventory";
+
+//Theme
+import { tokens } from "../../theme";
 
 const Search = ({ currencyEx, currencyCal, currency }) => {
   const [sneaker, setSneaker] = useState(null);
   const [detail, setDetail] = useState(null);
   const [url, setUrl] = useState("");
 
+  //Color Theme
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
+  //Handle Change on URL Input Change
   const handleChange = (e) => {
     e.preventDefault();
     const searchURL = e.target.value;
     setUrl(searchURL);
   };
 
+  //Search Sneaker Detail from StockXAPI
   const onSneakerSearch = async () => {
     const data = { url };
     const prod = await inventoryAPI.search(data);
@@ -35,6 +43,7 @@ const Search = ({ currencyEx, currencyCal, currency }) => {
     setUrl("");
   };
 
+  //Get Sneaker Detail for Certain Size
   const onGetDetail = (size) => {
     const detail = sneaker.variants.filter((s) => s.size === size);
     setDetail(detail[0]);
@@ -67,7 +76,6 @@ const Search = ({ currencyEx, currencyCal, currency }) => {
       {sneaker ? (
         <Box
           display="flex"
-          // backgroundColor={colors.primary[400]}
           sx={{
             flexDirection: "column",
             justifyContent: "center",

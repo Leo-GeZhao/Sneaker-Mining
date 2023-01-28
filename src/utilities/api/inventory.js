@@ -1,30 +1,37 @@
 import axios from "axios";
 const BASE_URL = "/inventories";
 
-export async function search(data) {
+//Search Inventory from StockXAPI
+export const search = (data) => {
   return axios.post(`${BASE_URL}/search-sneaker`, data);
-}
+};
 
-export async function add(data) {
+//Add a Inventory
+export const add = (data) => {
   return axios.post(`${BASE_URL}/add`, data);
-}
+};
 
-export async function getAll(data) {
-  return axios.post(`${BASE_URL}/`, data);
-}
+//Get All Inventory
+export const getAll = async (data) => {
+  return await axios.post(`${BASE_URL}/`, data);
+};
 
-export async function update(data) {
-  return axios.post(`${BASE_URL}/update`, data);
-}
+//Update a Inventory Detail from StockXAPI
+export const update = async (data) => {
+  return await axios.post(`${BASE_URL}/update`, data);
+};
 
-export async function deleteAll(id) {
-  return axios.delete(`${BASE_URL}/${id}/delete`);
-}
+//Delete All Size from Single Inventory
+export const deleteAll = async (id) => {
+  return await axios.delete(`${BASE_URL}/${id}/delete`);
+};
 
-export async function deleteOne(id, data) {
-  return axios.post(`${BASE_URL}/${id}/delete-size`, data);
-}
+//Delete a Single Size from Single Inventory
+export const deleteOne = async (id, data) => {
+  return await axios.post(`${BASE_URL}/${id}/delete-size`, data);
+};
 
-export async function sold(id, data) {
-  return axios.post(`${BASE_URL}/${id}/sold-size`, data);
-}
+//Sold a Inventory
+export const sold = async (id, data) => {
+  return await axios.post(`${BASE_URL}/${id}/sold-size`, data);
+};

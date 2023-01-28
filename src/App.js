@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
-import * as transactionAPI from "./utilities/api/transaction";
+
 import { ColorModeContext, useMode } from "./theme";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 
+//Components
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
-
 import Landing from "./scenes/Landing/Landing";
 import Dashboard from "./scenes/dashboard/Dashboard";
 import Search from "./scenes/Search/Search";
@@ -16,8 +16,13 @@ import Expense from "./scenes/Expense/Index";
 import Comparison from "./scenes/BarChart/Index";
 import Overview from "./scenes/Overview/Index";
 
+//Transaction API
+import * as transactionAPI from "./utilities/api/transaction";
+
+//User Service
 import { getUser } from "./utilities/service/user";
 
+//Toggle Currency
 const currency = {
   USD: 1,
   CAD: 1.36,
@@ -28,21 +33,22 @@ const App = () => {
   const [currencyEx, setCurrencyEx] = useState(currency.USD);
   const [user, setUser] = useState(getUser);
   const [finish, setFinish] = useState(false);
-
   const [transactions, setTransactions] = useState([]);
 
+  //Get All Transactions
   useEffect(
     function () {
-      async function getTransactions() {
+      const getTransactions = async () => {
         const data = { id: user._id };
         const transactions = await transactionAPI.getTransactions(data);
         setTransactions(transactions.data);
-      }
+      };
       getTransactions();
     },
     [finish]
   );
 
+  //Toggle Currency
   const currencyCal = (price) => {
     return Math.floor(price * currencyEx);
   };
@@ -54,11 +60,7 @@ const App = () => {
         <div className="app">
           <Sidebar user={user} />
           <main className="content">
-            <Topbar
-              currencyEx={currencyEx}
-              setCurrencyEx={setCurrencyEx}
-              currency={currency}
-            />
+            <Topbar setCurrencyEx={setCurrencyEx} currency={currency} />
             <Routes>
               {!user ? (
                 <Route
@@ -133,9 +135,7 @@ const App = () => {
                         currencyEx={currencyEx}
                         currency={currency}
                         currencyCal={currencyCal}
-                        user={user}
                         transactions={transactions}
-                        setFinish={setFinish}
                       />
                     }
                   />

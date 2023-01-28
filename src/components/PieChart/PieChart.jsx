@@ -1,10 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { ResponsivePie } from "@nivo/pie";
-import * as inventoryAPI from "../../utilities/api/inventory";
-import { tokens } from "../../theme";
+
 import { useTheme, Box, Typography } from "@mui/material";
 
-const PieChart = ({ currencyEx, currency, currencyCal, height, user }) => {
+//Nivo Chart Package
+import { ResponsivePie } from "@nivo/pie";
+
+//Inventory API
+import * as inventoryAPI from "../../utilities/api/inventory";
+
+import * as inventoryService from "../../utilities/service/inventory";
+
+//Color Theme
+import { tokens } from "../../theme";
+
+const PieChart = ({ currencyCal, height, user }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [totalExpense, setTotalExpense] = useState(null);
@@ -15,39 +24,36 @@ const PieChart = ({ currencyEx, currency, currencyCal, height, user }) => {
 
   useEffect(
     function () {
-      async function getInventoryByBrand() {
+      const getInventoryByBrand = async () => {
         const data = { id: user._id };
         const inventory = await inventoryAPI.getAll(data);
-        const totalExpense = inventory.data
-          .map((i) => i.size.length * i.expense)
-          .reduce((a, b) => a + b, 0);
+
+        //Total Expense
+        const totalExpense = inventoryService.expense(inventory);
         setTotalExpense(totalExpense);
-        const nikeValue = inventory.data
-          .filter((i) => i.brand === "Nike")
-          .map((b) => b.size.length * b.expense)
-          .reduce((a, b) => a + b, 0);
-        setNikeValue(nikeValue);
-        const jordanValue = inventory.data
-          .filter((i) => i.brand === "Jordan")
-          .map((b) => b.size.length * b.expense)
-          .reduce((a, b) => a + b, 0);
-        setJordanValue(jordanValue);
-        const adidasValue = inventory.data
-          .filter((i) => i.brand === "Adidas")
-          .map((b) => b.size.length * b.expense)
-          .reduce((a, b) => a + b, 0);
-        setAdidasValue(adidasValue);
-        const yeezyValue = inventory.data
-          .filter((i) => i.brand === "Yeezy")
-          .map((b) => b.size.length * b.expense)
-          .reduce((a, b) => a + b, 0);
-        setYeezyValue(yeezyValue);
-      }
+
+        //Nike Expense
+        const nikeExpense = inventoryService.expense(inventory, "Nike");
+        setNikeValue(nikeExpense);
+
+        //Jordan Expense
+        const jordanExpense = inventoryService.expense(inventory, "Jordan");
+        setJordanValue(jordanExpense);
+
+        //Adidas Expense
+        const adidasExpense = inventoryService.expense(inventory, "Adidas");
+        setAdidasValue(adidasExpense);
+
+        //Yeezy Expense
+        const yeezyExpense = inventoryService.expense(inventory, "Yeezy");
+        setYeezyValue(yeezyExpense);
+      };
       getInventoryByBrand();
     },
     [totalExpense]
   );
 
+  //Pie Chart Data
   const data = [
     {
       id: "Nike",

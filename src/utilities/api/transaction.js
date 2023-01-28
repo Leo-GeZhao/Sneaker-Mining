@@ -1,10 +1,12 @@
 import axios from "axios";
 const BASE_URL = "/transactions";
 
-export async function createTransaction(data) {
-  return axios.post(`${BASE_URL}/create`, data);
-}
+//Create a Transaction
+export const createTransaction = async (data) => {
+  return await axios.post(`${BASE_URL}/create`, data);
+};
 
-export async function getTransactions(data) {
-  return axios.post(`${BASE_URL}/`, data);
-}
+//Get All Sold Transactions
+export const getTransactions = async (data) => {
+  return await axios.post(`${BASE_URL}/`, data);
+};

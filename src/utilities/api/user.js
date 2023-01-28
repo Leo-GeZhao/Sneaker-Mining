@@ -1,14 +1,17 @@
 import axios from "axios";
 const BASE_URL = "/users";
 
-export async function signUp(data) {
-  return axios.post(`${BASE_URL}`, data);
-}
+//User SignUp
+export const signUp = async (data) => {
+  return await axios.post(`${BASE_URL}`, data);
+};
 
-export async function login(data) {
-  return axios.post(`${BASE_URL}/login`, data);
-}
+//User Login
+export const login = async (data) => {
+  return await axios.post(`${BASE_URL}/login`, data);
+};
 
-export async function googleSignIn(data) {
-  return axios.post(`${BASE_URL}/googleSignIn`, data);
-}
+//Google OAuth SignUp&Login
+export const googleSignIn = async (data) => {
+  return await axios.post(`${BASE_URL}/googleSignIn`, data);
+};

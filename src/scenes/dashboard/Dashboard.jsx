@@ -1,14 +1,21 @@
-import Header from "../../components/Header/Header";
+import { useNavigate } from "react-router-dom";
+
 import { Box, Typography, useTheme } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
-import { tokens } from "../../theme";
+
+//Components
+import Header from "../../components/Header/Header";
 import Transaction from "../../components/Transaction/Transaction";
 import PieChart from "../../components/PieChart/PieChart";
 import Logout from "../../components/Logout/Logout";
+
+//User Service
 import { logout } from "../../utilities/service/user";
-import { useNavigate } from "react-router-dom";
+
+//Color Theme
+import { tokens } from "../../theme";
 
 const Dashboard = ({
   currencyEx,
@@ -20,8 +27,11 @@ const Dashboard = ({
 }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
+  //Navigate to other Pages
   const navigate = useNavigate();
 
+  //Item Format
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
     ...theme.typography.body2,
@@ -30,13 +40,14 @@ const Dashboard = ({
     color: theme.palette.text.secondary,
   }));
 
-  function handleLogOut() {
+  //Handle User Logout
+  const handleLogOut = () => {
     logout();
     setUser(null);
     navigate("/");
-    // setShowGoogleSignIn(true);
-  }
+  };
 
+  //Get Most Recent Two Transactions Showing in dashboard
   const displayTransaction = transactions.slice(0, 2);
 
   return (
@@ -95,30 +106,23 @@ const Dashboard = ({
               >
                 <Typography sx={{ mb: 2 }}>
                   Total Profit:{" "}
-                  {transactions.map((t) => t.profit).reduce((a, b) => a + b, 0)}
+                  {currencyCal(
+                    transactions.map((t) => t.profit).reduce((a, b) => a + b, 0)
+                  )}
                 </Typography>
               </Box>
             </Item>
           </Grid>
           <Grid item xs={8}>
             <Item>
-              <PieChart
-                currencyEx={currencyEx}
-                currency={currency}
-                currencyCal={currencyCal}
-                height={200}
-                user={user}
-              />
+              <PieChart currencyCal={currencyCal} height={200} user={user} />
             </Item>
           </Grid>
 
           <Grid item xs={12}>
             <Item>
               <Transaction
-                currencyEx={currencyEx}
-                currency={currency}
                 currencyCal={currencyCal}
-                user={user}
                 transactions={displayTransaction}
               />
             </Item>

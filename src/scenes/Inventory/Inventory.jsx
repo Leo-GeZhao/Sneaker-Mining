@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Header from "../../components/Header/Header";
-import List from "../../components/List/List";
-import { tokens } from "../../theme";
-import * as inventoryAPI from "../../utilities/api/inventory";
-import { Box, useTheme } from "@mui/material";
 
+import { Box, useTheme } from "@mui/material";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -12,11 +8,20 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+
+//Components
+import Header from "../../components/Header/Header";
+import List from "../../components/List/List";
+
+//Inventory API
+import * as inventoryAPI from "../../utilities/api/inventory";
+
+//Color Theme
+import { tokens } from "../../theme";
 
 const Inventory = ({
   currencyEx,
@@ -29,18 +34,18 @@ const Inventory = ({
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [inventory, setInventory] = useState([]);
-
   const [brand, setBrand] = useState("Nike");
 
+  //Get All Inventories
   useEffect(
     function () {
-      async function getInventory() {
+      const getInventory = async () => {
         const data = { id: user._id };
         const allInventory = await inventoryAPI.getAll(data);
         const inventory = allInventory.data.filter((i) => i.brand === brand);
         setFinish(false);
         setInventory(inventory);
-      }
+      };
       getInventory();
     },
     [finish, brand]
@@ -92,14 +97,7 @@ const Inventory = ({
           </Table>
         </TableContainer>
         {inventory.map((i) => (
-          <List
-            inventory={i}
-            currencyEx={currencyEx}
-            currencyCal={currencyCal}
-            currency={currency}
-            setFinish={setFinish}
-            finish={finish}
-          />
+          <List inventory={i} currencyCal={currencyCal} setFinish={setFinish} />
         ))}
       </Box>
     </Box>

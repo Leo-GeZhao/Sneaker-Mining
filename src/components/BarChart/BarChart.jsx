@@ -1,17 +1,25 @@
 import { useEffect, useState } from "react";
+
 import { useTheme } from "@mui/material";
-import { ResponsiveBar } from "@nivo/bar";
-import { tokens } from "../../theme";
 import { Box } from "@mui/material";
-
-import * as inventoryAPI from "../../utilities/api/inventory";
-
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
-const BarChart = ({ currencyEx, currency, currencyCal, user }) => {
+//Nivo Chart Package
+import { ResponsiveBar } from "@nivo/bar";
+
+//Inventory API
+import * as inventoryAPI from "../../utilities/api/inventory";
+
+//Inventory Service
+import * as inventoryService from "../../utilities/service/inventory";
+
+//Color Theme
+import { tokens } from "../../theme";
+
+const BarChart = ({ currencyCal, user }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [brand, setBrand] = useState("Nike");
@@ -22,55 +30,43 @@ const BarChart = ({ currencyEx, currency, currencyCal, user }) => {
 
   useEffect(
     function () {
-      async function getInventoryByBrand() {
+      const getInventoryByBrand = async () => {
         const data = { id: user._id };
         const allInventory = await inventoryAPI.getAll(data);
 
-        console.log(allInventory.data);
-
         const inventory = allInventory.data.filter((i) => i.brand === brand);
 
-        const brandExpense = inventory
-          .map(
-            (i) => i.size.filter((s) => s.isSold === false).length * i.expense
-          )
-          .reduce((a, b) => a + b, 0);
+        //Get Total Expense by Brand
+        const brandExpense = inventoryService.brandDetail(inventory);
         setExpense(brandExpense);
 
-        const brandHighestBid = inventory
-          .map((i) =>
-            i.size
-              .filter((i) => i.isSold === false)
-              .map((i) => i.highestBid)
-              .reduce((a, b) => a + b, 0)
-          )
-          .reduce((a, b) => a + b, 0);
+        //Get Total HighestBid by Brand
+        const brandHighestBid = inventoryService.brandDetail(
+          inventory,
+          "highestBid"
+        );
         setHighestBid(brandHighestBid);
 
-        const brandLowestAsk = inventory
-          .map((i) =>
-            i.size
-              .filter((i) => i.isSold === false)
-              .map((i) => i.lowestAsk)
-              .reduce((a, b) => a + b, 0)
-          )
-          .reduce((a, b) => a + b, 0);
+        //Get Total LowestAsk by Brand
+        const brandLowestAsk = inventoryService.brandDetail(
+          inventory,
+          "lowestAsk"
+        );
         setLowestAsk(brandLowestAsk);
 
-        const brandLastSale = inventory
-          .map((i) =>
-            i.size
-              .filter((i) => i.isSold === false)
-              .map((i) => i.lastSale)
-              .reduce((a, b) => a + b, 0)
-          )
-          .reduce((a, b) => a + b, 0);
+        //Get Total LastSale by Brand
+        const brandLastSale = inventoryService.brandDetail(
+          inventory,
+          "lastSale"
+        );
         setLastSale(brandLastSale);
-      }
+      };
       getInventoryByBrand();
     },
     [brand]
   );
+
+  //Bar Chart Data
   const data = [
     {
       comparison: "Expense",
@@ -225,11 +221,6 @@ const BarChart = ({ currencyEx, currency, currencyCal, user }) => {
             },
           ]}
           role="application"
-          barAriaLabel={function (e) {
-            return (
-              e.id + ": " + e.formattedValue + " in country: " + e.indexValue
-            );
-          }}
         />
       </Box>
     </Box>

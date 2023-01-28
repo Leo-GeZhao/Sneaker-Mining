@@ -14,6 +14,7 @@ app.use(express.json());
 app.use(favicon(path.join(__dirname, "build", "favicon.ico")));
 app.use(express.static(path.join(__dirname, "build")));
 
+//Routes
 app.use("/inventories", require("./routes/inventory"));
 app.use("/users", require("./routes/users"));
 app.use("/transactions", require("./routes/transactions"));
@@ -22,6 +23,7 @@ app.get("/*", function (req, res) {
   res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 
+//Database
 const port = process.env.PORT || 3001;
 
 app.listen(port, function () {

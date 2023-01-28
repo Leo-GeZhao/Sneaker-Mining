@@ -1,11 +1,18 @@
 import { useState } from "react";
-import * as inventoryAPI from "../../utilities/api/inventory";
-import Header from "../../components/Header/Header";
+
 import { Box, useTheme, TextField, Button } from "@mui/material";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+
+//Components
+import Header from "../../components/Header/Header";
+
+//Inventory API
+import * as inventoryAPI from "../../utilities/api/inventory";
+
+//Color Theme
 import { tokens } from "../../theme";
 
 const Add = ({ user }) => {
@@ -16,6 +23,7 @@ const Add = ({ user }) => {
   const [expenseStr, setExpenseStr] = useState("");
   const [brand, setBrand] = useState("Nike");
 
+  //Handle Add Inventory
   const handleSubmit = async () => {
     const size = sizeStr[0].split(",").map(Number);
     const expense = Number(expenseStr);

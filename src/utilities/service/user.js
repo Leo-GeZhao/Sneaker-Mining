@@ -1,6 +1,6 @@
 import * as usersAPI from "../api/user";
 
-export function getToken() {
+export const getToken = () => {
   const token = window.localStorage.getItem("token");
   if (!token) return null;
 
@@ -10,34 +10,37 @@ export function getToken() {
     window.localStorage.removeItem("token");
     return null;
   }
-
   return token;
-}
+};
 
-export function getUser() {
+export const getUser = () => {
   const token = getToken();
   if (!token) return null;
   return JSON.parse(window.atob(token.split(".")[1])).user;
-}
+};
 
-export async function signUp(formData) {
+//User SignUp
+export const signUp = async (formData) => {
   const token = await usersAPI.signUp(formData);
   window.localStorage.setItem("token", JSON.stringify(token));
   return getUser();
-}
+};
 
-export function logout() {
-  localStorage.removeItem("token");
-}
-
-export async function login(credentials) {
+//User Login
+export const login = async (credentials) => {
   const token = await usersAPI.login(credentials);
   window.localStorage.setItem("token", JSON.stringify(token));
   return getUser();
-}
+};
 
-export async function googleSignIn(data) {
+//User GoogleAuth SignUp&Login
+export const googleSignIn = async (data) => {
   const token = await usersAPI.googleSignIn(data);
   window.localStorage.setItem("token", JSON.stringify(token));
   return getUser();
-}
+};
+
+//User Logout
+export const logout = () => {
+  localStorage.removeItem("token");
+};

@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { Box, TextField, Button } from "@mui/material";
-import { signUp } from "../../utilities/service/user";
 import { useNavigate } from "react-router-dom";
 
+import { Box, TextField, Button } from "@mui/material";
+import { signUp } from "../../utilities/service/user";
+
+//Default State for User SignUp
 const defaultState = {
   name: "",
   email: "",
@@ -13,8 +15,20 @@ const defaultState = {
 const SignUp = ({ colors, setUser }) => {
   const [formData, setFormData] = useState(defaultState);
   const { name, email, password, confirm } = formData;
+
+  //Nagivate to other Pages
   const navigate = useNavigate();
 
+  //Handle Change User SignUp State
+  const handleChange = (e) => {
+    const newFormData = {
+      ...formData,
+      [e.target.name]: e.target.value,
+    };
+    setFormData(newFormData);
+  };
+
+  //Handle Submit User SignUp
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { name, password, email } = formData;
@@ -24,16 +38,10 @@ const SignUp = ({ colors, setUser }) => {
     navigate("/dashboard");
   };
 
-  const handleChange = (e) => {
-    const newFormData = {
-      ...formData,
-      [e.target.name]: e.target.value,
-    };
-    setFormData(newFormData);
-  };
-
+  //User SignUp Validations
   const disabled =
     password !== confirm || !name || !email || !password || !confirm;
+
   return (
     <Box
       component="form"
