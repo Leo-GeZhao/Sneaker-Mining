@@ -1,5 +1,10 @@
 # Welcome to SneakerVault - A simple tool to manage your sneaker inventories.
 
+## Login Credential for testing
+
+- Email: test@gmail.com
+- Password: 1234
+
 ## SignUp/Login Page
 
 <img src = "public/Readme/Auth.png">
