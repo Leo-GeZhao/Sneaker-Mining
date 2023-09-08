@@ -1,5 +1,15 @@
 # Welcome to SneakerVault - A simple tool to manage your sneaker inventories.
 
+## My Goal
+
+As a sneaker enthusiast with a collection of over 100 prized sneakers, I needed a solution to efficiently manage and sell my inventory. <br>
+<br>
+My Sneaker Inventory Management Platform allows me to track market prices on StockX, manage my collection, view transaction history, and analyze inventory performance through insightful graphs. <br>
+<br>
+It's not just a tool; it's my essential partner in maximizing the value of my cherished collection.
+
+<img src = "public/Readme/Collection.png">
+
 ## Login Credential for testing
 
 - Email: test@gmail.com
